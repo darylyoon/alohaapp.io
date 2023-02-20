@@ -329,3 +329,99 @@ ul .btn{
   padding-top: 20px;
 }
 
+.home_image{
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+
+.home_client_logo{
+  position: relative;
+  height: 600;
+  opacity: 0.5;
+}
+
+.home_text{
+  position: absolute;
+  font-size: 50px;
+  font-weight: 600;
+  margin-top: 230px;
+}
+
+.home_fme{
+  position: absolute;
+  font-size: 50px;
+  margin-top: 280px;
+}
+
+.fme_button{
+  background-color: #FD7133;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 5px 55px 5px 55px;
+}
+
+.partner_text{
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.partner_showcase{
+  justify-content: center;
+  text-align: center;
+}
+
+.home_partner_logo{
+  width: 80px;
+}
+
+.home_partner_text{
+  display: inline;
+  margin-left: 10px;
+}
+
+.use_case_text{
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.use_case_showcase{
+  justify-content: center;
+}
+
+.use_case_link{
+  text-decoration: none;
+}
+
+.use_case{
+  text-align: center;
+  justify-content:center;
+  border-radius: 15px; 
+  margin-right: 5px;
+  border-radius: 15px;
+  /* border: none !important; */
+}
+
+.use_case_title{
+  font-weight: 600;
+  color: black;
+}
+
+.use_case_images{
+  
+}
+
+.use_case_description{
+  color: black;
+}
+
+.use_case:hover{
+  transform: scale(1.05);
+  transform-origin: 50% 50%;
+  transition:.1s;
+  border: 2px solid #FD7133 !important;
+}
