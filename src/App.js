@@ -6,13 +6,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Pdp from './pages/pdp';
+import Home from './pages/home';
 
 function App() {
   return (
     <div>
       <Navbar/>
       <Pdp/>
-      
+      {/* <Home/> */}
     </div>
     
   );

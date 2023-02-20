@@ -63,7 +63,7 @@ function BrowsePage() {
               </div>
               <div class='cards'>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 1</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -72,7 +72,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 2</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -81,7 +81,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 3</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -91,7 +91,7 @@ function BrowsePage() {
                 </div>
 
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 1</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -100,7 +100,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 2</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -109,7 +109,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 3</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -119,7 +119,7 @@ function BrowsePage() {
                 </div>
 
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 1</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -128,7 +128,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 2</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -137,7 +137,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 3</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
