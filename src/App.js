@@ -7,13 +7,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import Pdp from './pages/pdp';
 import Home from './pages/home';
+import Checkout from './pages/checkout';
 
 function App() {
   return (
     <div>
       <Navbar/>
-      <Pdp/>
+      {/* <Pdp/> */}
       {/* <Home/> */}
+      <Checkout/>
     </div>
     
   );
