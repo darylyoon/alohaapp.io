@@ -1,4 +1,6 @@
 import React from 'react';
+import Carouselcomp from '../components/carousel';
+
 
 function Pdp() {
   return (
@@ -12,7 +14,7 @@ function Pdp() {
             <h2 class='pdp_title'>Lunch & Learn: Let’s Stop Eating Plastic</h2>
             <div class="row">
                 <div class="col-8">
-                    <img src={require('../assets/test.png')} alt="..."/>
+                    <Carouselcomp></Carouselcomp>
                 </div>
                 <div class="col-4">
                     <div class="pricing">
