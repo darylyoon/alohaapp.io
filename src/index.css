@@ -348,8 +348,7 @@ ul .btn{
   padding-top: 20px;
 }
 
-/* home page */
-
+/* Home Page */
 .home_image{
   display: flex;
   position: relative;
@@ -399,7 +398,9 @@ ul .btn{
   border: none;
   color: white;
   border-radius: 10px;
+
   font-size: 15px;
+
   padding: 5px 55px 5px 55px;
 }
 

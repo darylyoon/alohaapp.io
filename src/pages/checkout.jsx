@@ -52,7 +52,6 @@ function Checkout() {
                         </table>
                     </div>
                     <hr class="hr_checkout"/>
-
                     <div class="row co_price co_price_head">
                         <div class="col-6 leftside">
                             <p>Price</p>

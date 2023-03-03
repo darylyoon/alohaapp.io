@@ -68,6 +68,7 @@ function Home() {
                     <div class="col-2">
                     <a class="use_case_link" href="...">
                             <div class="row use_case">
+
                                 <img src={require('../assets/use_cases/connect_and_communicate.png')} alt="" class='use_case_images' style={{width:120, height:100, marginTop:5}}/>
                                 <h5 class="use_case_title" style={{marginTop:5, height:50, width:200}}>CONNECT & COMMUNICATE</h5>
                                 <p class="use_case_description" style={{marginTop:5}}>This is a short description of what this category means</p>
@@ -98,6 +99,7 @@ function Home() {
                     <div class="col-2">
                     <a class="use_case_link" href="...">
                             <div class="row use_case">
+
                                 <img src={require('../assets/use_cases/performance_booster.png')} alt="" class='use_case_images' style={{width:120, height:100, marginTop:5}}/>
                                 <h5 class="use_case_title" style={{marginTop:5, height:50, width:200}}>PERFORMANCE BOOSTER</h5>
                                 <p class="use_case_description" style={{marginTop:5}}>This is a short description of what this category means</p>

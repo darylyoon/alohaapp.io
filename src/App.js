@@ -10,7 +10,6 @@ import Home from './pages/home';
 import Checkout from './pages/checkout';
 import Confirmation from './pages/confirmation';
 
-
 function App() {
   return (
     <div>
@@ -38,7 +37,6 @@ function App() {
       {/* <Home/> */}
       <Checkout/>
       {/* <Confirmation/> */}
-
     </div>
     
   );
