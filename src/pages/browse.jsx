@@ -1,4 +1,5 @@
 import React from 'react';
+import MultiRangeSlider from "../components/MultiRangeSlider";
 
 function BrowsePage() {
   return (
@@ -41,7 +42,11 @@ function BrowsePage() {
               <input type="checkbox" id="touch2"/> 
 
               <ul class="slide">
-                <li><input type="range" class="form-range" id="customRange1"/></li> 
+                <li><MultiRangeSlider
+                    min={0}
+                    max={500}
+                    onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+                  /></li> 
               </ul>
 
 
@@ -50,8 +55,16 @@ function BrowsePage() {
               <input type="checkbox" id="touch3"/> 
 
               <ul class="slide">
-                <li><p>Start Date</p><input type="date"/></li> 
-                <li><p>End Date</p><input type="date"/></li> 
+                <li>
+                  <div class='row dates'>
+                    <div class='col-6'>
+                      <p>Start Date:</p><input type="date"/>
+                      </div>
+                      <div class='col-6'>
+                      <p>End Date:</p><input type="date"/>
+                      </div>
+                  </div>
+                  </li> 
               </ul>
               </div>
 
@@ -63,7 +76,7 @@ function BrowsePage() {
               </div>
               <div class='cards'>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 1</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -72,7 +85,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 2</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -81,7 +94,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 3</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -91,7 +104,7 @@ function BrowsePage() {
                 </div>
 
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 1</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -100,7 +113,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 2</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -109,7 +122,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 3</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -119,7 +132,7 @@ function BrowsePage() {
                 </div>
 
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 1</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -128,7 +141,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 2</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
@@ -137,7 +150,7 @@ function BrowsePage() {
                   </div>
                 </div>
                 <div class="card">
-                  <img src={require('./assets/test.png')} class="card-img-top hi" alt="..."/>
+                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 3</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>

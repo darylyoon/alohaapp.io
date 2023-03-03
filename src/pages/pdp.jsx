@@ -1,4 +1,6 @@
 import React from 'react';
+import Carouselcomp from '../components/carousel';
+
 
 function Pdp() {
   return (
@@ -6,13 +8,13 @@ function Pdp() {
         {/* product details page */}
         <div class="container-fluid">
             <div class='pdp_c'>
-                <img src={require('./assets/Emblem-WWF.jpeg')} alt="..." class='pdp_client_logo'/>
+                <img src={require('../assets/Emblem-WWF.jpeg')} alt="..." class='pdp_client_logo'/>
                 <h6 class='pdp_client'>World Wildlife Foundation</h6>
             </div>
             <h2 class='pdp_title'>Lunch & Learn: Let’s Stop Eating Plastic</h2>
             <div class="row">
                 <div class="col-8">
-                    <img src={require('./assets/test.png')} alt="..."/>
+                    <Carouselcomp></Carouselcomp>
                 </div>
                 <div class="col-4">
                     <div class="pricing">
@@ -139,11 +141,11 @@ function Pdp() {
         <div class="container-fluid">
             <h6 class='pdp_who'>Sustainability</h6>
             <div class='sus_img'>
-                <img src={require('./sus.png')} alt="..."/>
-                <img src={require('./sus.png')} alt="..."/>
-                <img src={require('./sus.png')} alt="..."/>
-                <img src={require('./sus.png')} alt="..."/>
-                <img src={require('./sus.png')} alt="..."/>
+                <img src={require('../assets/sus.png')} alt="..."/>
+                <img src={require('../assets/sus.png')} alt="..."/>
+                <img src={require('../assets/sus.png')} alt="..."/>
+                <img src={require('../assets/sus.png')} alt="..."/>
+                <img src={require('../assets/sus.png')} alt="..."/>
             </div>
         </div>
     </div>

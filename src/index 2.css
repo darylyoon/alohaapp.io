@@ -85,22 +85,6 @@ hr{
   
 }
 
-.dates input, .dates p{
-  color: #858585;
-  text-align: left;
-}
-
-.dates input{
-  padding: 3px;
-  border: #a5a5a5 1px solid;
-}
-
-.dates p{
-  color: #FD7133;
-  font-weight: 500;
-  margin-bottom: 10px;
-}
-
 .filtertop{
   padding-bottom: 20px;
   font-size : 15px;
@@ -154,7 +138,7 @@ li{
 
 #touch2 {position: absolute; opacity: 0; height: 0px;}    
 
-#touch2:checked + .slide {height: 80px !important;} 
+#touch2:checked + .slide {height: 300px;} 
 
 #touch3 {position: absolute; opacity: 0; height: 0px;}    
 
@@ -222,11 +206,8 @@ li{
   font-size: 12px;
 }
 
-.navbar_brand{
-  width: 85px;
-  margin-right: 30px;
-  margin-bottom: 5px;
-  
+.navbar-brand{
+  color: #FD7133 !important;
 }
 
 /* pdp */
@@ -348,8 +329,8 @@ ul .btn{
   padding-top: 20px;
 }
 
-/* home page */
 
+/* Home Page */
 .home_image{
   display: flex;
   position: relative;
@@ -364,28 +345,9 @@ ul .btn{
 
 .home_text{
   position: absolute;
-  font-size: 40px;
+  font-size: 50px;
   font-weight: 600;
   margin-top: 230px;
-  overflow: hidden; /* Ensures the content is not revealed until the animation */
-  border-right: .15em solid #FD7133; /* The typwriter cursor */
-  white-space: nowrap; /* Keeps the content on a single line */
-  
-  animation: 
-    typing 2.5s steps(40, end),
-    blink-caret .75s step-end infinite;
-}
-
-/* The typing effect */
-@keyframes typing {
-  from { width: 0 }
-  to { width: 48% }
-}
-
-/* The typewriter cursor effect */
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #FD7133; }
 }
 
 .home_fme{
@@ -399,19 +361,14 @@ ul .btn{
   border: none;
   color: white;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 20px;
   padding: 5px 55px 5px 55px;
 }
 
 .partner_text{
   display: flex;
   justify-content: center;
-  margin-top: 200px;
-}
-
-.partner_text h2, .use_case_text h2, .customer_journey h2{
-  font-size: 22px;
-  padding-bottom: 30px;
+  margin-top: 150px;
 }
 
 .partner_showcase{
@@ -420,7 +377,7 @@ ul .btn{
 }
 
 .home_partner_logo{
-  width: 70px;
+  width: 80px;
 }
 
 .home_partner_text{
@@ -431,7 +388,7 @@ ul .btn{
 .use_case_text{
   display: flex;
   justify-content: center;
-  margin-top: 200px;
+  margin-top: 150px;
 }
 
 .use_case_showcase{
@@ -446,158 +403,31 @@ ul .btn{
   text-align: center;
   justify-content:center;
   border-radius: 15px; 
-  padding-right: 10px;
-  padding-left: 10px;
+  margin-right: 5px;
   border-radius: 15px;
-  transition: 0.4s;
   /* border: none !important; */
 }
-
 
 .use_case_title{
   font-weight: 600;
   color: black;
-  font-size: 17px;
-  /* center text vertically */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100px;
-
 }
 
 .use_case_images{
-  margin-top: 30px !important;
-  margin-bottom: 30px;
+  
 }
 
 .use_case_description{
   color: black;
-  font-size: 13px;
 }
 
 .use_case:hover{
-  border: 2px solid #FD7133 !important;
   transform: scale(1.05);
+  transform-origin: 50% 50%;
+  transition:.1s;
+  border: 2px solid #FD7133 !important;
 }
 
-.blob{
-  opacity: 0.5;
-}
-
-.burger{
-  height: 600px;
-  padding-left: 150px;
-}
-
-.customer_journey_image{
-  /* center image */
-  padding-left: 150px ;
-  margin-bottom: 200px;
-  height: 500px;
-}
-
-/* slider */
-.slider_container{
-  position: relative;
-  padding-top: 20px;
-  margin-left: 15px;
-}
-
-.slider {
-  position: relative;
-  width: 235px;
-}
-
-.slider__track,
-.slider__range,
-.slider__left-value,
-.slider__right-value {
-  position: absolute;
-}
-
-.slider__track,
-.slider__range {
-  border-radius: 3px;
-  height: 5px;
-}
-
-.slider__track {
-  background-color: #ced4da;
-  width: 100%;
-  z-index: 1;
-}
-
-.slider__range {
-  background-color: #FD7133;
-  z-index: 2;
-}
-
-.slider__left-value,
-.slider__right-value {
-  color: #858585;
-  font-size: 12px;
-  margin-top: 20px;
-}
-
-.slider__left-value {
-  left: 6px;
-}
-
-.slider__right-value {
-  right: -4px;
-}
-
-/* Removing the default appearance */
-.thumb,
-.thumb::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.thumb {
-  pointer-events: none;
-  position: absolute;
-  height: 0;
-  width: 235px;
-  outline: none;
-}
-
-.thumb--left {
-  z-index: 3;
-}
-
-.thumb--right {
-  z-index: 4;
-}
-
-/* For Chrome browsers */
-.thumb::-webkit-slider-thumb {
-  background-color: #f1f5f7;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 0 1px 1px #ced4da;
-  cursor: pointer;
-  height: 18px;
-  width: 18px;
-  margin-top: 4px;
-  pointer-events: all;
-  position: relative;
-}
-
-/* For Firefox browsers */
-.thumb::-moz-range-thumb {
-  background-color: #f1f5f7;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 0 1px 1px #ced4da;
-  cursor: pointer;
-  height: 18px;
-  width: 18px;
-  margin-top: 4px;
-  pointer-events: all;
-  position: relative;
-}
 
 /* Checkout Page */
 .checkout_back_button{
@@ -605,28 +435,19 @@ ul .btn{
   background-color: white;
   display: flex;
   align-items: center;
-  padding-bottom: 10px;
 }
 
 .arrow_back{
   display: inline-block;
   font-size: 50px;
   margin-left: 50px;
-  font-weight: 200;
-}
-
-.checkout{
-  padding: 50px;
-  padding-top: 10px;
 }
 
 .back_text{
   display: inline-block;
-  font-size: 15px;
-  margin-left: 10px;
+  font-size: 20px;
+  margin-left: 20px;
   margin-top: 13px;
-  margin-bottom: 5px;
-  font-weight: 500;
 }
 
 .checkout_details{
@@ -636,7 +457,7 @@ ul .btn{
 }
 
 .checkout_details_header{
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 600;
   text-align: center;
   align-items: center;
@@ -659,20 +480,20 @@ ul .btn{
 .experience_cover_image{
   width: 100%;
   height: 120px;
+  border-radius: 5px;
 }
 
 .experience_title{
-  text-decoration: none;
+  text-decoration: underline;
+  margin-top: 15px;
   margin-left: 10px;
   width: 100%;
   text-align: left;
   padding-left: 20px;
-  padding-bottom: 10px;
 }
 
 .detail_alignment{
   padding-left: 20px;
-  font-size: 13px;
 }
 
 .hr_checkout{
@@ -701,189 +522,4 @@ ul .btn{
 .participant_count{
   text-align: right;
   width: 50%;
-}
-
-.leftside p{
-  padding-left: 15px;
-}
-
-.rightside p{
-  text-align: right;
-  padding-right: 15px;
-}
-
-.co_options{
-  margin-left: 25px;
-  padding-top: 30px;
-  width: 100%;
-  font-size: 15px;
-}
-
-.r1 {
-  margin-bottom: 15px;
-}
-
-.r1 span,.r2 span{
-  margin-left: 5px;
-}
-
-.co_tc{
-  padding-left: 15px;
-  font-size: 12px;
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
-
-.co_tc p{
-  margin-bottom: 8px;
-}
-
-.cobold{
-  font-weight: 700;
-}
-
-.cobold p{
-  margin-bottom: 0px;
-  margin-top: 15px;
-}
-
-.co_price p{
-  margin-bottom: 0px;
-  margin-top: 15px;
-  font-size: 13px;
-}
-
-.co_first{
-  margin-top: 15px !important;
-}
-
-.co_price_head{
-  font-weight: 700;
-}
-
-.checkout_form{
-  margin-left: 25px;
-  margin-right: 25px;
-}
-
-.checkout_form label{
-  font-size: 13px;
-  font-weight: 500;
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
-.checkout_form input{
-  font-size: 13px;
-}
-
-.carddeets2{
-  margin-top: 10px;
-}
-
-.checkout_form_header img{
-  height: 20px;
-  float: right;
-  margin-left: 10px;
-}
-
-.checkout_form_header{
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.pay_btn{
-  margin-top: 50px;
-  margin-bottom: 30px;
-  width: 100%;
-  background-color: #FD7133 !important;
-  color: white !important;
-}
-
-/* Confirmation page */
-.confirmation{
-  text-align: center;
-}
-
-.confirmation img{
-  width: 100px;
-  padding-top: 50px;
-  padding-bottom: 20px;
-}
-
-/* Questionnaire */
-.questionnaire{
-  height: 350px;
-  transition: 0.4s;
-}
-
-.popup-content{
-  width:850px !important;
-}
-
-.questionnaire_usecase{
-  padding-left: 40px;
-  /* horizontally center */
-  margin: 0 auto;
-  /* vertically center */
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.questionnaire_usecase img{
-  margin-top: 20px !important;
-}
-
-.questionnaire img{
-  width: 80px !important;
-  height: 60px !important;
-  margin-bottom: 0px !important;
-}
-
-.questionnaire .use_case_showcase h5{
-  font-size: 12px !important;
-  padding-top: 0px !important;
-}
-
-.q1details{
-  top: 50%;
-  transform: translateY(-50%);
-  position: relative;
-  margin-left: 30px;
-}
-
-.q1 h4{
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  padding-bottom: 20px;
-}
-
-.q1 img{
-  width: 30px !important;
-  height: 30px !important;
-  top: 50%;
-  transform: translateY(-50%);
-  position: relative;
-}
-
-.q1 p{
-  font-size: 15px;
-  padding-top: 10px;
-}
-
-.letsgo_btn{
-  margin-top: 20px;
-  font-size: 13px !important;
-  background-color: #FD7133 !important;
-  color: white !important;
-  /* center button */
-  position: relative;
-  left: 40%;
-}
-
-.onlyamin{
-  text-align: center;
-  font-size: 11px !important;
 }
