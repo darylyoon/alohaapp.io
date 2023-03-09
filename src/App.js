@@ -8,6 +8,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import Pdp from './pages/pdp';
 import Home from './pages/home';
 import Checkout from './pages/checkout';
+import { Routes, Route } from 'react-router-dom';
 import Confirmation from './pages/confirmation';
 
 function App() {
@@ -32,6 +33,11 @@ function App() {
         crossorigin="anonymous"
       />
       <Navbar/>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+        <Route path="/browse" element={<BrowsePage/>}/>
+        <Route path="/pdp" element={<Pdp/>}/>
+      </Routes>
       {/* <Pdp/> */}
       {/* <BrowsePage/> */}
       <Home/>
