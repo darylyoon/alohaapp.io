@@ -1,4 +1,6 @@
 import React from "react";
+import { Blob } from 'react-interactive-blob'
+import Questionnaire from "../components/questionnaire";
 
 function Home() {
     return (
@@ -12,7 +14,7 @@ function Home() {
                 </div>
 
                 <div class="home_fme">
-                    <button class="fme_button">Find My Experience</button>
+                    <Questionnaire/>
                 </div>
             </div>
 
@@ -52,12 +54,12 @@ function Home() {
                     <h2>Impacts Your Team Can Make</h2>
                 </div>
 
-                <div class="row use_case_showcase" style={{marginTop:10}}>
+                <div class="row use_case_showcase">
                     <div class="col-2">
                         <a class="use_case_link" href="...">
                             <div class="row use_case">
-                                <h5 class="use_case_title" style={{marginTop:20, height:50, width:200}}>RETAIN & RE-ENGAGE</h5>
                                 <img src={require('../assets/use_cases/retain_and_reengage.png')} alt="" class='use_case_images' style={{width:120, height:100, marginTop:5}}/>
+                                <h5 class="use_case_title" style={{marginTop:5, height:50, width:200}}>RETAIN & RE-ENGAGE</h5>
                                 <p class="use_case_description" style={{marginTop:5}}>This is a short description of what this category means</p>
                             </div>
                         </a>
@@ -66,8 +68,9 @@ function Home() {
                     <div class="col-2">
                     <a class="use_case_link" href="...">
                             <div class="row use_case">
-                                <h5 class="use_case_title" style={{marginTop:20, height:50, width:200}}>CONNECT & COMMUNICATE</h5>
+
                                 <img src={require('../assets/use_cases/connect_and_communicate.png')} alt="" class='use_case_images' style={{width:120, height:100, marginTop:5}}/>
+                                <h5 class="use_case_title" style={{marginTop:5, height:50, width:200}}>CONNECT & COMMUNICATE</h5>
                                 <p class="use_case_description" style={{marginTop:5}}>This is a short description of what this category means</p>
                             </div>
                         </a>
@@ -76,8 +79,8 @@ function Home() {
                     <div class="col-2">
                     <a class="use_case_link" href="...">
                             <div class="row use_case">
-                                <h5 class="use_case_title" style={{marginTop:20, height:50, width:200}}>REBULD & REALIGN</h5>
                                 <img src={require('../assets/use_cases/rebuild_and_realign.png')} alt="" class='use_case_images' style={{width:120, height:100, marginTop:5}}/>
+                                <h5 class="use_case_title" style={{marginTop:5, height:50, width:200}}>REBULD & REALIGN</h5>
                                 <p class="use_case_description" style={{marginTop:5}}>This is a short description of what this category means</p>
                             </div>
                         </a>
@@ -86,8 +89,8 @@ function Home() {
                     <div class="col-2">
                     <a class="use_case_link" href="...">
                             <div class="row use_case">
-                                <h5 class="use_case_title" style={{marginTop:20, height:50, width:200}}>CREATIVE LEARNING</h5>
                                 <img src={require('../assets/use_cases/creative_learning.png')} alt="" class='use_case_images' style={{width:120, height:100, marginTop:5}}/>
+                                <h5 class="use_case_title" style={{marginTop:5, height:50, width:200}}>CREATIVE LEARNING</h5>
                                 <p class="use_case_description" style={{marginTop:5}}>This is a short description of what this category means</p>
                             </div>
                         </a>
@@ -96,8 +99,9 @@ function Home() {
                     <div class="col-2">
                     <a class="use_case_link" href="...">
                             <div class="row use_case">
-                                <h5 class="use_case_title" style={{marginTop:20, height:50, width:200}}>PERFORMANCE BOOSTER</h5>
+
                                 <img src={require('../assets/use_cases/performance_booster.png')} alt="" class='use_case_images' style={{width:120, height:100, marginTop:5}}/>
+                                <h5 class="use_case_title" style={{marginTop:5, height:50, width:200}}>PERFORMANCE BOOSTER</h5>
                                 <p class="use_case_description" style={{marginTop:5}}>This is a short description of what this category means</p>
                             </div>
                         </a>
@@ -107,8 +111,12 @@ function Home() {
 
             {/* Customer Journey */}
             <div>
-                <div>
-                    <h2 style={{marginTop:100, textAlign:"center"}}>Customer Journey</h2>
+                <div class='customer_journey'>
+                    <h2 style={{marginTop:150, textAlign:"center"}}>Customer Journey</h2>
+                    <div class='container'>
+                        <img src={require('../assets/customer_journey.png')} alt="" class='customer_journey_image'/>
+                        {/* <Blob height={500} radius={100} color='#FD7133' markers='true' sensitivity='0.3'/> */}
+                    </div>
                 </div>
             </div>
         </div>

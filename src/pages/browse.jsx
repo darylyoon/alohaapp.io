@@ -1,4 +1,5 @@
 import React from 'react';
+import MultiRangeSlider from "../components/MultiRangeSlider";
 
 function BrowsePage() {
   return (
@@ -41,7 +42,11 @@ function BrowsePage() {
               <input type="checkbox" id="touch2"/> 
 
               <ul class="slide">
-                <li><input type="range" class="form-range" id="customRange1"/></li> 
+                <li><MultiRangeSlider
+                    min={0}
+                    max={500}
+                    onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
+                  /></li> 
               </ul>
 
 
@@ -50,8 +55,16 @@ function BrowsePage() {
               <input type="checkbox" id="touch3"/> 
 
               <ul class="slide">
-                <li><p>Start Date</p><input type="date"/></li> 
-                <li><p>End Date</p><input type="date"/></li> 
+                <li>
+                  <div class='row dates'>
+                    <div class='col-6'>
+                      <p>Start Date:</p><input type="date"/>
+                      </div>
+                      <div class='col-6'>
+                      <p>End Date:</p><input type="date"/>
+                      </div>
+                  </div>
+                  </li> 
               </ul>
               </div>
 
