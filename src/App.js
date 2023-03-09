@@ -34,8 +34,8 @@ function App() {
       <Navbar/>
       {/* <Pdp/> */}
       {/* <BrowsePage/> */}
-      {/* <Home/> */}
-      <Checkout/>
+      <Home/>
+      {/* <Checkout/> */}
       {/* <Confirmation/> */}
     </div>
     

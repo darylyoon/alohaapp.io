@@ -814,8 +814,9 @@ ul .btn{
 
 /* Questionnaire */
 .questionnaire{
-  height: 350px;
+  height: 450px;
   transition: 0.4s;
+  margin: 0px;
 }
 
 .popup-content{
@@ -887,4 +888,72 @@ ul .btn{
 .onlyamin{
   text-align: center;
   font-size: 11px !important;
+}
+
+.questionnaire1{
+  height: 450px;
+  transition: 0.4s;
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.qnimg{
+  height: -webkit-fill-available !important;
+  width: 250px !important;
+  /* fill entire div */
+  object-fit: cover !important;
+  /* scale image to fill div */
+  object-position: right !important;
+  /* center the image within the div */
+  margin: 0px !important;
+  padding: 0px !important;
+}
+
+.popup-content{
+  padding: 0px !important;
+}
+
+.questionnaire1 h4{
+  text-align: center;
+  padding-top: 20px;
+  font-weight: 600;
+}
+
+.qnback, .qnclose{
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 30px;
+  color: black;
+  background-color: white;
+  border: none;
+}
+
+.qnclosediv{
+  text-align: end;
+}
+
+.qnbuttons{
+  /* make items center */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 45px;
+}
+
+.btn-circle.btn-xl {
+  width: 120px;
+  height: 120px;
+  padding: 13px 18px;
+  border-radius: 60px;
+  margin-right: 8px;
+  margin-left: 8px;
+  font-size: 15px;
+  text-align: center;
+  border: #FD7133 3px solid;
+}
+
+.qnnext{
+  color: grey;
+  text-align: center;
+  font-size: 12px;
 }
