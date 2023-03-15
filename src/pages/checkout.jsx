@@ -116,23 +116,47 @@ function Checkout() {
 
                 <div class="col-6 checkout_form">
 
-                    <div class="checkout_form_header">
-                        <div class='row'>
-                            <div className="col-6">
-                                <p>Pay with</p>
-                            </div>
-                            <div className="col-6">
-                                <img class="checkout_form_header_img" src={require('../assets/visa.png')} alt="" />
-                                <img class="checkout_form_header_img" src={require('../assets/mastercard.png')} alt="" />
-                            </div>
+                    <h3>Detail Confirmation</h3>
+                    <hr/>
+
+                    <div class="row">
+                        <div className="col-6">
+                            <label for="name">First Name</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="First Name"/>
+                        </div>
+                        <div className="col-6">
+                            <label for="name">Last Name</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="Last Name"/>
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div className="col-6">
+                            <label for="name">Email</label>
+                            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="Email"/>
+                        </div>
+                        <div className="col-6">
+                            <label for="email">Mobile Number</label>
+                            <input type="text" class="form-control" id="email" aria-describedby="basic-addon3" placeholder="Mobile Number"/>
+                        </div>
+                    </div>
+
+                    <label for="card">Company Name</label>
+                    <input type="text" class="form-control" id="card" aria-describedby="basic-addon3" placeholder="Company Name"/>
+
+                    <div class='row'>
+                        <div className="col-6">
+                            <h3 className="headerscnd">Payment</h3>
+                        </div>
+                        <div className="col-6">
+                            <img class="checkout_form_header_img" src={require('../assets/visa.png')} alt="" />
+                            <img class="checkout_form_header_img" src={require('../assets/mastercard.png')} alt="" />
+                        </div>
+                    </div>
+                    <hr/>
+
                     <label for="name">Name on Card</label>
                     <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="Name on card"/>
-
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" aria-describedby="basic-addon3" placeholder="Email"/>
 
                     <label for="card">Card Information</label>
                     <input type="text" class="form-control" id="card" aria-describedby="basic-addon3" placeholder="Card Number"/>
@@ -143,6 +167,7 @@ function Checkout() {
 
                     <button type="button" class="btn pay_btn">Pay</button>
                 </div>
+                
             </div>
             </div>
 
