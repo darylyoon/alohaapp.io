@@ -1,5 +1,4 @@
 import React from "react";
-import { Blob } from 'react-interactive-blob'
 import Questionnaire from "../components/questionnaire";
 
 function Home() {
