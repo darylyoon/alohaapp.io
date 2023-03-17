@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     MDBBtn,
     MDBContainer,
@@ -8,11 +8,27 @@ import {
     MDBCardBody,
     MDBInput,
     MDBCheckbox,
-    MDBIcon
+    MDBIcon,
+    MDBValidation,
+    MDBValidationItem,
+    MDBInputGroup
   }
   from 'mdb-react-ui-kit';
 
-function Login() {
+
+export default function Login() {
+  const [formValue, setValues] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    password: '',
+  });
+  const onChange = (e) => {
+    setValues({
+      formValue,
+      [e.target.name]: e.target.value,
+    });
+  };
     return (
     <MDBContainer fluid className='p-4 login' >
 
@@ -39,25 +55,60 @@ function Login() {
           <MDBCard className='my-5'>
             <MDBCardBody className='p-1'>
 
-              <MDBRow>
-                <MDBCol col='6'>
+              <MDBValidation isValidated>
+                <MDBValidationItem col='6' invalid feedback='Please enter your first name.'>
                     <label for='form1' className='form-label'>First name</label>
-                  <MDBInput wrapperClass='mb-4' id='form1' type='text'/>
-                </MDBCol>
+                  <MDBInput 
+                  wrapperClass='mb-4' 
+                  id='form1' 
+                  name="fname"
+                  value = {formValue.fname}
+                  onChange = {onChange}
+                  required
+                  />
+                </MDBValidationItem>
 
-                <MDBCol col='6'>
+                <MDBValidationItem col='6' invalid feedback='Please enter your last name'>
                 <label for='form2' className='form-label'>Last name</label>
-                  <MDBInput wrapperClass='mb-4' id='form2' type='text'/>
-                </MDBCol>
-              </MDBRow>
+                  <MDBInput 
+                  wrapperClass='mb-4' 
+                  id='form2' 
+                  name="lname"
+                  value={formValue.lname}
+                  onChange={onChange}
+                  required
+                  />
+                </MDBValidationItem>
 
+              <MDBValidationItem invalid feedback='Please enter a valid email!'>
               <label for='form3' className='form-label'>Email</label>
-              <MDBInput wrapperClass='mb-4'  id='form3' type='email'/>
+              <MDBInput
+              wrapperClass='mb-4'  
+              id='form3' 
+              name="email"
+              type='email'
+              value={formValue.email}
+              onChange={onChange}
+              required
+              />
+              </MDBValidationItem>
 
+              <MDBValidationItem valid>
               <label for='form4' className='form-label'>Password</label>
-              <MDBInput wrapperClass='mb-4'  id='form4' type='password'/>
+              <MDBInput 
+              wrapperClass='mb-4'  
+              id='form4' 
+              name="password"
+              type='password'
+              value={formValue.password}
+              onChange={onChange}
+              required
+              />
+              </MDBValidationItem>
 
-              <button className='w-100 mb-1 loginbtn' size='md'>Sign up</button>
+              <MDBBtn className='w-100 mb-1 loginbtn' size='md' type="submit">Sign up</MDBBtn>
+
+              </MDBValidation>
 
             </MDBCardBody>
           </MDBCard>
@@ -70,4 +121,4 @@ function Login() {
     );
 }
 
-export default Login;
+// export default Login;
