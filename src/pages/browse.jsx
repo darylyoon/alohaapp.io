@@ -75,7 +75,7 @@ function BrowsePage() {
                 <h4>12 Activities Found</h4>
               </div>
               <div class='cards'>
-                <div class="card">
+                <div class="card" href="/pdp">
                   <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 1</div>
                   <div class="card-description">
