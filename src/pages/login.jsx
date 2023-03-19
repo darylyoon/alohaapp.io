@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     MDBBtn,
     MDBContainer,
@@ -8,11 +8,70 @@ import {
     MDBCardBody,
     MDBInput,
     MDBCheckbox,
-    MDBIcon
+    MDBIcon,
+    MDBValidation,
+    MDBValidationItem
   }
   from 'mdb-react-ui-kit';
+// import { googleAuthProvider } from "../util/google_authentication_provider";
+import { firebaseAuth, provider, db } from "../util/firebaseInit";
+import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+
 
 function Login() {
+  const [formValue, setValues] = useState({
+    fname: '',
+    lname: '',
+    email: '',
+    password: '',
+  });
+  const onChange = (e) => {
+    setValues({
+      formValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+  async function googleLogin() {
+    const result = signInWithPopup(firebaseAuth, provider)
+    signInWithPopup(firebaseAuth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        return result
+
+      }).catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log("Boo")
+      });
+      await setDoc(doc(db, 'User', 'U2'), {
+        name : result.user.displayName,
+        email : result.user.email,
+        // password : result.user.password
+      });
+    };
+  
+  async function pwLogin() {
+    createUserWithEmailAndPassword(firebaseAuth, formValue.email, formValue.password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
+      await setDoc(doc(db, "User", "U1"), {
+        name: "Los Angeles",
+        state: "CA",
+        country: "USA"
+      });
+  }
     return (
     <MDBContainer fluid className='p-4 login' >
 
@@ -39,25 +98,61 @@ function Login() {
           <MDBCard className='my-5'>
             <MDBCardBody className='p-1'>
 
-              <MDBRow>
-                <MDBCol col='6'>
+              <MDBValidation isValidated>
+                <MDBValidationItem col='6' invalid feedback='Please enter your first name.'>
                     <label for='form1' className='form-label'>First name</label>
-                  <MDBInput wrapperClass='mb-4' id='form1' type='text'/>
-                </MDBCol>
+                  <MDBInput 
+                  wrapperClass='mb-4' 
+                  id='form1' 
+                  name="fname"
+                  value = {formValue.fname}
+                  onChange = {onChange}
+                  required
+                  />
+                </MDBValidationItem>
 
-                <MDBCol col='6'>
+                <MDBValidationItem col='6' invalid feedback='Please enter your last name'>
                 <label for='form2' className='form-label'>Last name</label>
-                  <MDBInput wrapperClass='mb-4' id='form2' type='text'/>
-                </MDBCol>
-              </MDBRow>
+                  <MDBInput 
+                  wrapperClass='mb-4' 
+                  id='form2' 
+                  name="lname"
+                  value={formValue.lname}
+                  onChange={onChange}
+                  required
+                  />
+                </MDBValidationItem>
 
+              <MDBValidationItem invalid feedback='Please enter a valid email!'>
               <label for='form3' className='form-label'>Email</label>
-              <MDBInput wrapperClass='mb-4'  id='form3' type='email'/>
+              <MDBInput
+              wrapperClass='mb-4'  
+              id='form3' 
+              name="email"
+              type='email'
+              value={formValue.email}
+              onChange={onChange}
+              required
+              />
+              </MDBValidationItem>
 
+              <MDBValidationItem>
               <label for='form4' className='form-label'>Password</label>
-              <MDBInput wrapperClass='mb-4'  id='form4' type='password'/>
+              <MDBInput 
+              wrapperClass='mb-4'  
+              id='form4' 
+              name="password"
+              type='password'
+              value={formValue.password}
+              onChange={onChange}
+              required
+              />
+              </MDBValidationItem>
 
-              <button className='w-100 mb-1 loginbtn' size='md'>Sign up</button>
+              <MDBBtn className='w-100 mb-1 loginbtn' size='md' onClick={pwLogin}>Sign up</MDBBtn>
+
+              <MDBBtn className='Google' size="md" onClick={googleLogin}><img src="../assets/btn_google_signin_light.png" alt=""/></MDBBtn>
+              </MDBValidation>
 
             </MDBCardBody>
           </MDBCard>
@@ -65,7 +160,6 @@ function Login() {
         </MDBCol>
 
       </MDBRow>
-
     </MDBContainer>
     );
 }
