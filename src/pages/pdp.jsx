@@ -1,6 +1,6 @@
 import React from 'react';
 import Carouselcomp from '../components/carousel';
-
+import { Link } from 'react-router-dom';
 
 function Pdp() {
   return (

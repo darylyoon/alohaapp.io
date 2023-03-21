@@ -1,7 +1,17 @@
 import React from 'react';
 import MultiRangeSlider from "../components/MultiRangeSlider";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Link
+} from "react-router-dom";
+
 
 function BrowsePage() {
+  const experience = {
+    Exp_name: "Planting Trees",
+
+  }
   return (
     <div>
         <head>
@@ -75,15 +85,15 @@ function BrowsePage() {
                 <h4>12 Activities Found</h4>
               </div>
               <div class='cards'>
-                <div class="card" href="/pdp">
+                <a href={`/pdp/1`} id="experience" class="card">
                   <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 1</div>
+                  <div class="card-title">{experience.Exp_name}</div>
                   <div class="card-description">
                     14 Oct 2023 - 17 Oct 2023<br/>
                     $50/pax
                     <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
                   </div>
-                </div>
+                </a>
                 <div class="card">
                   <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
                   <div class="card-title">Activity 2</div>
