@@ -15,8 +15,9 @@ import {
   from 'mdb-react-ui-kit';
 // import { googleAuthProvider } from "../util/google_authentication_provider";
 import { firebaseAuth, provider, db } from "../util/firebaseInit";
-import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { Route, Router } from "react-router-dom";
 
 
 function Login() {
@@ -28,17 +29,26 @@ function Login() {
   });
   const onChange = (e) => {
     setValues({
-      formValue,
+      ...formValue,
       [e.target.name]: e.target.value,
     });
   };
-  async function googleLogin() {
-    const result = signInWithPopup(firebaseAuth, provider)
+  function googleSignIn() {
     signInWithPopup(firebaseAuth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
-        return result
+        // console.log(result);
+        const user = result.user;
+        console.log(user);
+        const userRef = doc(db, "User", user.uid);
+        setDoc(userRef, {
+          name: user.displayName,
+          email: user.email,
+        });
+        Router("/browse");
+        // const res = db.collection('User').doc('U1').set(result);
+        // console.log(res)
 
       }).catch((error) => {
         const errorCode = error.code;
@@ -46,32 +56,42 @@ function Login() {
         const email = error.email;
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log("Boo")
-      });
-      await setDoc(doc(db, 'User', 'U2'), {
-        name : result.user.displayName,
-        email : result.user.email,
-        // password : result.user.password
+        return "Tough"
       });
     };
-  
-  async function pwLogin() {
+
+  function pwLogin() {
     createUserWithEmailAndPassword(firebaseAuth, formValue.email, formValue.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+        const userRef = doc(db, "User", user.uid);
+        setDoc(userRef, {
+          name: formValue.fname + " " + formValue.lname,
+          email: formValue.email,
+        });
 
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorMessage);
       });
-      await setDoc(doc(db, "User", "U1"), {
-        name: "Los Angeles",
-        state: "CA",
-        country: "USA"
-      });
+    };
+    function signIn () {
+    signInWithEmailAndPassword(firebaseAuth, formValue.email, formValue.password)
+    .then((userCredential) => {
+    // Signed in 
+      const user = userCredential.user;
+    // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
   }
+  
     return (
     <MDBContainer fluid className='p-4 login' >
 
@@ -99,7 +119,7 @@ function Login() {
             <MDBCardBody className='p-1'>
 
               <MDBValidation isValidated>
-                <MDBValidationItem col='6' invalid feedback='Please enter your first name.'>
+                <MDBValidationItem col='6' valid feedback='Please enter your first name.'>
                     <label for='form1' className='form-label'>First name</label>
                   <MDBInput 
                   wrapperClass='mb-4' 
@@ -111,7 +131,7 @@ function Login() {
                   />
                 </MDBValidationItem>
 
-                <MDBValidationItem col='6' invalid feedback='Please enter your last name'>
+                <MDBValidationItem col='6' valid>
                 <label for='form2' className='form-label'>Last name</label>
                   <MDBInput 
                   wrapperClass='mb-4' 
@@ -149,9 +169,10 @@ function Login() {
               />
               </MDBValidationItem>
 
-              <MDBBtn className='w-100 mb-1 loginbtn' size='md' onClick={pwLogin}>Sign up</MDBBtn>
+              <MDBBtn className='w-100 mb-1 loginbtn' size='md' type="submit" onClick={signIn}>Sign in</MDBBtn>
+              <MDBBtn className='w-100 mb-1 signupbtn' size='md' type="submit" onClick={pwLogin}>Sign up</MDBBtn>
 
-              <MDBBtn className='Google' size="md" onClick={googleLogin}><img src="../assets/btn_google_signin_light.png" alt=""/></MDBBtn>
+              <MDBBtn className='Google' size="md" onClick={googleSignIn}><img src={require("../assets/btn_google_signin_light.png")} alt="Google Sign In"/></MDBBtn>
               </MDBValidation>
 
             </MDBCardBody>
@@ -162,6 +183,5 @@ function Login() {
       </MDBRow>
     </MDBContainer>
     );
-}
-
+    }
 export default Login;
