@@ -11,13 +11,14 @@ import Checkout from './pages/checkout';
 import { Routes, Route } from 'react-router-dom';
 import Confirmation from './pages/confirmation';
 import Login from './pages/login';
+import Dashboard from './pages/dashboard';
 
 function App() {
   return (
     <div>
-      <Navbar/>
+      {/* <Navbar/> */}
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Dashboard/>}/>
         <Route path="/browse" element={<BrowsePage/>}/>
         <Route path="/pdp" element={<Pdp/>}/>
         <Route path="/login" element={<Login/>}/>
