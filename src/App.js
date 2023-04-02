@@ -16,20 +16,18 @@ import Dashboard from './pages/dashboard';
 function App() {
   return (
     <div>
-      {/* <Navbar/> */}
+      <Navbar/>
       <Routes>
-        <Route path="/" element={<Dashboard/>}/>
+        <Route path="/" element={<Home/>}/>
         <Route path="/browse" element={<BrowsePage/>}/>
-        <Route path="/pdp" element={<Pdp/>}/>
+        <Route path="/pdp/:exp_id" element={<Pdp/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/checkout" element={<Checkout/>}/>
+        <Route path="/confirmation" element={<Confirmation/>}/>
+        <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
-      {/* <Pdp/> */}
-      {/* <BrowsePage/> */}
-      {/* <Home/> */}
-      {/* <Checkout/> */}
-      {/* <Confirmation/> */}
     </div>
-    
+
   );
 }
 

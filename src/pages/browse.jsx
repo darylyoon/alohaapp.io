@@ -5,12 +5,49 @@ import {
   RouterProvider,
   Link
 } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import {db} from '../firebase';
+import { useState, useEffect } from 'react';
+import {useNavigate} from 'react-router-dom';
 
 
 function BrowsePage() {
-  const experience = {
-    Exp_name: "Planting Trees",
 
+  const navigate = useNavigate();
+  const [data, setData] = useState([]);
+
+  const fetchPost = async () => {
+    await getDocs(collection(db, "Experiences"))
+    .then((querySnapshot) => {
+      const info = querySnapshot.docs.map((doc) => [doc.id,doc.data()]);
+      setData(info);
+    })
+  }
+
+  useEffect(()=>{
+    fetchPost();
+  }, [])
+
+  function goPdp(id) {
+    navigate(`/pdp/${id}`);
+  }
+
+  function showExperience() {
+    return data.map((item) => {
+      return (
+        <div class="card">
+          <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
+          <div class="card-title">{item[1].ExpName}</div>
+          <div class="card-description">
+            {item[1].Duration}<br/>
+            {item[1].Price.p_Pax}/pax
+            <p>{item[1].Exp_Sig}</p>
+          </div>
+          <button class="btn btn-primary" onClick={() => goPdp(item[0])}>View Details</button>
+        </div>
+      )
+    }
+    )
   }
   return (
     <div>
@@ -85,89 +122,7 @@ function BrowsePage() {
                 <h4>12 Activities Found</h4>
               </div>
               <div class='cards'>
-                <a href={`/pdp/1`} id="experience" class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">{experience.Exp_name}</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </a>
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 2</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 3</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 1</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 2</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 3</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
-
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 1</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 2</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
-                <div class="card">
-                  <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-                  <div class="card-title">Activity 3</div>
-                  <div class="card-description">
-                    14 Oct 2023 - 17 Oct 2023<br/>
-                    $50/pax
-                    <p>This will be the description of the activity in detail, a brief summary on its purpose and target audience and goals.</p>
-                  </div>
-                </div>
+                  {showExperience()}
               </div>
             </div>
           </div>
