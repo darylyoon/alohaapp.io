@@ -32,103 +32,166 @@ function BrowsePage() {
     navigate(`/pdp/${id}`);
   }
 
-  function showExperience() {
+  const showExperience = () => {
     return data.map((item) => {
-      return (
-        <div class="card">
-          <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
-          <div class="card-title">{item[1].ExpName}</div>
-          <div class="card-description">
-            {item[1].Duration}<br/>
-            {item[1].Price.p_Pax}/pax
-            <p>{item[1].Exp_Sig}</p>
+      if (id_list.includes(item[0])) {
+        return (
+          <div class="card">
+            <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
+            <div class="card-title">{item[1].ExpName}</div>
+            <div class="card-description">
+              {item[1].Duration}<br/>
+              {item[1].Price.p_Pax}/pax
+              <p>{item[1].Exp_Sig}</p>
+            </div>
+            <button class="btn btn-primary" onClick={() => goPdp(item[0])}>View Details</button>
           </div>
-          <button class="btn btn-primary" onClick={() => goPdp(item[0])}>View Details</button>
-        </div>
-      )
-    }
-    )
+        )
+      }
+    })
   }
-  return (
-    <div>
-        <head>
-          <title>Browsing Page</title>
-        </head>
-        <body>
-          <div class="container">
-            <div class="left-column">
-            <nav class='filterby'>
-              <div>
-              <div class='filtertop'>
-                <p class='inline'>Filter By</p>
-                <p class='inline scnd'>Clear All</p>
-              </div>  
-              <label for="touch"><span class='filter_title'>Categories</span></label>
-              <hr/>     
-              <input type="checkbox" id="touch"/> 
 
-              <ul class="slide">
-                <li><input type='checkbox'/><span>Environmental Conservation</span></li> 
-                <li><input type='checkbox'/><span>Social Sector</span></li> 
-                <li><input type='checkbox'/><span>Food Sustainability</span></li> 
-              </ul>
+  //function to convert '$300' to 300
+  function convertToNum (str) {
+    return parseInt(str.replace(/[^0-9]/g, ''));
+  }
 
-              <label for="touch1"><span class='filter_title'>Participants</span></label>   
-              <hr/>            
-              <input type="checkbox" id="touch1"/> 
+  const [fcategories, setCategories] = useState([]);
+  const [fparticipants, setParticipants] = useState('');
+  const [fbudget, setBudget] = useState([]);
+  
+  // const [fdate, setDate] = useState('');
 
-              <ul class="slide">
-              <li><input type='radio'/><span>Up to 20</span></li> 
-                <li><input type='radio'/><span>21 to 50</span></li> 
-                <li><input type='radio'/><span>50 to 100</span></li>
-                <li><input type='radio'/><span>More than 100</span></li> 
-              </ul>
+  if (data[0] !== undefined) {
 
-              <label for="touch2"><span class='filter_title'>Budget</span></label>  
-              <hr/>                  
-              <input type="checkbox" id="touch2"/> 
+    // check if the checkbox is checked or not
+    const check = (e) => {
+      if (e.target.checked) {
+        // push calue into setCategories
+        setCategories([...fcategories, e.target.value]);
+      } else {
+        // remove value from setCategories
+        setCategories(fcategories.filter((item) => item !== e.target.value));
+      }
+    }
 
-              <ul class="slide">
-                <li><MultiRangeSlider
-                    min={0}
-                    max={500}
-                    onChange={({ min, max }) => console.log(`min = ${min}, max = ${max}`)}
-                  /></li> 
-              </ul>
+    const checkpax = (e) => {
+      if (e.target.checked) {
+        // push calue into setCategories
+        setParticipants(e.target.value);
+      }
+    }
+
+    function loadcheck (e)  {
+      if (fcategories.includes(e.target.value)) {
+        e.target.checked = true;
+      }
+    }
+
+    var id_list = [];
+    data.map((each, index) => {
+        return id_list.push(each[0]);
+    })
+
+     // FILTERING
+     data.map((item, index) => {
+      if (fcategories.length !== 0) {
+        if (fcategories.includes(item[1].Exp_Pillar) === false) {
+          var temp = id_list.indexOf(item[0]);
+          id_list.splice(temp, 1);
+        }
+      }
+
+      if (fparticipants !== null) {
+        if (fparticipants > item[1].Max_Part) {
+          var temp = id_list.indexOf(item[0]);
+          id_list.splice(temp, 1);
+        }
+      }
+
+    })
+
+    return (
+      <div>
+          <head>
+            <title>Browsing Page</title>
+          </head>
+          <body>
+            <div class="container">
+              <div class="left-column">
+              <nav class='filterby'>
+                <div>
+                <div class='filtertop'>
+                  <p class='inline'>Filter By</p>
+                  <p class='inline scnd'>Clear All</p>
+                </div>  
+                <label for="touch"><span class='filter_title'>Categories</span></label>
+                <hr/>     
+                <input type="checkbox" id="touch"/> 
+
+                <ul class="slide">
+                  <li><input type='checkbox' id='E' value={'E'} onLoad={loadcheck} onChange={check} /><span>Environmental Conservation</span></li> 
+                  <li><input type='checkbox' id='S' value={'S'} onLoad={loadcheck} onChange={check}/><span>Social Sector</span></li> 
+                  <li><input type='checkbox' id='F' value={'F'} onLoad={loadcheck} onChange={check}/><span>Food Sustainability</span></li> 
+                </ul>
+
+                <label for="touch1"><span class='filter_title'>Participants</span></label>   
+                <hr/>            
+                <input type="checkbox" id="touch1"/> 
+
+                <ul class="slide">
+                <li><input type='radio' name='paxselect' value={20} onChange={checkpax}/><span>Up to 20</span></li> 
+                  <li><input type='radio' name='paxselect' value={50} onChange={checkpax}/><span>21 to 50</span></li> 
+                  <li><input type='radio' name='paxselect' value={100} onChange={checkpax}/><span>50 to 100</span></li>
+                  <li><input type='radio' name='paxselect' value={200} onChange={checkpax}/><span>More than 100</span></li> 
+                </ul>
+
+                <label for="touch2"><span class='filter_title'>Budget</span></label>  
+                <hr/>                  
+                <input type="checkbox" id="touch2"/> 
+
+                <ul class="slide">
+                  <li><MultiRangeSlider
+                      min={0}
+                      max={500}
+                      onChange={(min, max) => {console.log(min, max)}}
+                    /></li> 
+                </ul>
 
 
-              <label for="touch3"><span class='filter_title'>Date</span></label>    
-              <hr/>                
-              <input type="checkbox" id="touch3"/> 
+                <label for="touch3"><span class='filter_title'>Date</span></label>    
+                <hr/>                
+                <input type="checkbox" id="touch3"/> 
 
-              <ul class="slide">
-                <li>
-                  <div class='row dates'>
-                    <div class='col-6'>
-                      <p>Start Date:</p><input type="date"/>
-                      </div>
+                <ul class="slide">
+                  <li>
+                    <div class='row dates'>
                       <div class='col-6'>
-                      <p>End Date:</p><input type="date"/>
-                      </div>
-                  </div>
-                  </li> 
-              </ul>
-              </div>
+                        <p>Start Date:</p><input type="date"/>
+                        </div>
+                        <div class='col-6'>
+                        <p>End Date:</p><input type="date"/>
+                        </div>
+                    </div>
+                    </li> 
+                </ul>
+                </div>
 
-            </nav> 
-            </div>
-            <div class="right-column">
-              <div class='found_header'>
-                <h4>12 Activities Found</h4>
+              </nav> 
               </div>
-              <div class='cards'>
-                  {showExperience()}
+              <div class="right-column">
+                <div class='found_header'>
+                  <h4>12 Activities Found</h4>
+                </div>
+                <div class='cards'>
+                    {showExperience(id_list)}
+                </div>
               </div>
             </div>
-          </div>
-        </body>
-    </div>
-  );
+          </body>
+      </div>
+    );
+}
 }
 
 export default BrowsePage;
