@@ -28,6 +28,8 @@ function BrowsePage() {
     fetchPost();
   }, [])
 
+  console.log(data);
+
   function goPdp(id) {
     navigate(`/pdp/${id}`);
   }
@@ -36,6 +38,7 @@ function BrowsePage() {
     return data.map((item) => {
       if (id_list.includes(item[0])) {
         return (
+          <a onClick={() => goPdp(item[0])} className='col-4'>
           <div class="card">
             <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
             <div class="card-title">{item[1].ExpName}</div>
@@ -44,8 +47,8 @@ function BrowsePage() {
               {item[1].Price.p_Pax}/pax
               <p>{item[1].Exp_Sig}</p>
             </div>
-            <button class="btn btn-primary" onClick={() => goPdp(item[0])}>View Details</button>
           </div>
+          </a>
         )
       }
     })
@@ -88,6 +91,21 @@ function BrowsePage() {
       }
     }
 
+    function clearAll (e) {
+      setCategories([]);
+      setParticipants('');
+      // unselect all checkboxes
+      var checkboxes = document.querySelectorAll('input[type=checkbox]');
+      for (var checkbox of checkboxes) {
+        checkbox.checked = false;
+      }
+      // unselect all radio buttons
+      var radios = document.querySelectorAll('input[type=radio]');
+      for (var radio of radios) {
+        radio.checked = false;
+      }
+    }
+
     var id_list = [];
     data.map((each, index) => {
         return id_list.push(each[0]);
@@ -123,7 +141,7 @@ function BrowsePage() {
                 <div>
                 <div class='filtertop'>
                   <p class='inline'>Filter By</p>
-                  <p class='inline scnd'>Clear All</p>
+                  <p class='inline scnd'><button className='clearallbtn' onClick={clearAll}>Clear All</button></p>
                 </div>  
                 <label for="touch"><span class='filter_title'>Categories</span></label>
                 <hr/>     
@@ -181,7 +199,7 @@ function BrowsePage() {
               </div>
               <div class="right-column">
                 <div class='found_header'>
-                  <h4>12 Activities Found</h4>
+                  <h4>{id_list.length} Activities Found</h4>
                 </div>
                 <div class='cards'>
                     {showExperience(id_list)}
