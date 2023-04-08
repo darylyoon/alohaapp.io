@@ -11,6 +11,7 @@ import Checkout from './pages/checkout';
 import { Routes, Route } from 'react-router-dom';
 import Confirmation from './pages/confirmation';
 import Login from './pages/login';
+import Logout from './pages/logout';
 import Dashboard from './pages/dashboard';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/browse" element={<BrowsePage/>}/>
         <Route path="/pdp/:exp_id" element={<Pdp/>}/>
         <Route path="/login" element={<Login/>}/>
+        <Route path="/logout" element={<Logout/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path="/confirmation" element={<Confirmation/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
