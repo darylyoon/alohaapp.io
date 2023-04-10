@@ -23,7 +23,7 @@ function App() {
         <Route path="/pdp/:exp_id" element={<Pdp/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
-        <Route path="/confirmation" element={<Confirmation/>}/>
+        <Route path="/confirmation/:booking_id" element={<Confirmation/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
     </div>

@@ -1,39 +1,130 @@
 import React from "react";
+import "add-to-calendar-button";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import {db} from '../firebase';
+import { RWebShare } from "react-web-share";
 
 function Confirmation() {
+
+    const {booking_id} = useParams();
+    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [isSubscribed, setIsSubscribed] = useState(true);
+    const [date, setDate] = useState("")
+    const [time, setTime] = useState("")
+    useEffect(() => {
+        const getBooking = async () => {
+            setLoading(true);
+            const docRef = doc(db, "Booking", `B${booking_id}`);
+            const docSnap = await getDoc(docRef);
+            if (!isSubscribed) {
+                setLoading(false)
+                return;
+            }
+            if (docSnap.exists()) {
+                console.log("Document data:", docSnap.data());
+                setData(docSnap.data());
+                setLoading(false);
+            } else {
+                console.log("No such document!");
+            }
+        }
+        getBooking()
+            .catch(console.error);;
+        return () => (setIsSubscribed(false));
+    }, [booking_id, isSubscribed])
+    
+    // edit the data stored from useState data (time needs to be from e.g. 1000 - 1200 to 10:00am - 12:00pm) with setData
+    // also format the date from "01/01/23" to "01 January 2023, Monday"
+    useEffect(() => {
+        const editData = () => {
+            setLoading(true)
+            let timing = data.Time
+            timing = timing.replace(/(\d{2})(\d{2})/g, "$1:$2")
+            console.log(timing)
+            const [d, m, y] = data.Date.split("/");
+            const format_date = new Date(`20${y}-${m}-${d}`);
+            let day = format_date.getDay();
+            let month = format_date.getMonth();
+            let year = format_date.getFullYear();
+            let date_of = format_date.getDate();
+            let day_of_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            let month_of_year = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            console.log(`${date_of} ${month_of_year[month]} ${year}, ${day_of_week[day]}`);
+            setDate(`${date_of} ${month_of_year[month]} ${year}, ${day_of_week[day]}`);
+            setTime(timing);
+            setLoading(false);
+        }
+        if (!loading && data.Time && data.Date){
+            editData();
+        }
+    }, [loading, data.Time, data.Date])
+
+    if (loading) {
+        return <div>Loading...</div>
+    }
     return (
-        <div class="confirmation">
+        <div className="confirmation">
             <img src={require('../assets/plant.png')} alt="..."/>
             <h4>Booking Confirmed</h4>
             <p>Thank you for planting a seed towards sustainability and a fruitful team experience!</p>
+            <RWebShare
+                data={{
+                    text: "I just booked an experience from Aloha!",
+                    url: "https://google.com/", // hardcode for now
+                }}
+            >
+                <button className="shareButton">Share</button>
+            </RWebShare>
+            <div className="container-fluid">
+            <div className="row">
 
-            <div class="container-fluid">
-            <div class="row">
-
-                <div class="col-6">
-                    <div class="card carded">
-                    <div class="card-body">
-                        <h3 class="card-title">Experience Details</h3>
+                <div className="col-6">
+                    <div className="card carded">
+                    <div className="card-body">
+                        <h3 className="card-title">Experience Details</h3>
                         <hr/>
-                        <p class="card-text"><b>Experience:</b><br/>Lunch & Learn: Let’s Stop Eating Plastic</p>
-                        <p class="card-text"><b>Location:</b><br/>Clementi Park, Singapore 123456</p>
-                        <p class="card-text"><b>Time:</b><br/>9:00am - 12:00pm</p>
-                        <p class="card-text"><b>Participants:</b><br/>49</p>
-                        <p class="card-text"><b>Date:</b><br/>21 February 2023, Monday</p>
+                        {/* Map the data stored */}
+                        <p className="card-text"><b>Experience:</b><br/>{data.ExpName}</p>
+                        <p className="card-text"><b>Location:</b><br/>{data.Exp_Loc}</p>
+                        <p className="card-text"><b>Time:</b><br/>{time}</p>
+                        <p className="card-text"><b>Participants:</b><br/>{data.noOfPax}</p>
+                        <p className="card-text"><b>Date:</b><br/>{date}</p>
+                        {/* <p className="card-text"><b>Experience:</b><br/>Lunch & Learn: Let’s Stop Eating Plastic</p>
+                        <p className="card-text"><b>Location:</b><br/>Clementi Park, Singapore 123456</p>
+                        <p className="card-text"><b>Time:</b><br/>9:00am - 12:00pm</p>
+                        <p className="card-text"><b>Participants:</b><br/>49</p>
+                        <p className="card-text"><b>Date:</b><br/>21 February 2023, Monday</p> */}
+                        <add-to-calendar-button
+                            options="'Apple','Google','MicrosoftTeams'"
+                            buttonsList='true'
+                            buttonStyle="round"
+                            hideTextLabelButton="true"
+                            name="Title"
+                            location="World Wide Web"
+                            startDate="2023-04-13"
+                            endDate="2023-04-13"
+                            startTime="10:15"
+                            endTime="23:30"
+                            timeZone="Asia/Singapore"
+                            size="4"
+                        ></add-to-calendar-button>
                     </div>
                     </div>
                 </div>
 
-                <div class="col-6">
-                    <div class="card cardbd">
-                    <div class="card-body">
-                    <h3 class="card-title">Booking Details</h3>
+                <div className="col-6">
+                    <div className="card cardbd">
+                    <div className="card-body">
+                    <h3 className="card-title">Booking Details</h3>
                         <hr/>
-                        <p class="card-text"><b>Booker Name:</b><br/>John Doe</p>
-                        <p class="card-text"><b>Email:</b><br/>johndoe@spvglobal.io</p>
-                        <p class="card-text"><b>Mobile:</b><br/>+65 8123 4567</p>
-                        <p class="card-text"><b>Company Name:</b><br/>Aloha</p>
-                        <p class="card-text"><b>Amount Paid:</b><br/>$200.00</p>
+                        <p className="card-text"><b>Booker Name:</b><br/>{data.bookerDetails?.firstName} {data.bookerDetails?.lastName}</p>
+                        <p className="card-text"><b>Email:</b><br/>{data.bookerDetails?.email}</p>
+                        <p className="card-text"><b>Mobile:</b><br/>+65 {data.bookerDetails?.phone}</p>
+                        <p className="card-text"><b>Company Name:</b><br/>{data.bookerDetails?.companyName}</p>
+                        <p className="card-text"><b>Amount Paid:</b><br/>${data.amountPaid}</p>
                     </div>
                     </div>
                 </div>
