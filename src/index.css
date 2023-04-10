@@ -1259,3 +1259,12 @@ ul .btn{
   padding-bottom: 0px !important;
 }
 
+.shareButton{
+  background-color: #FD7133 !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 30px 8px 30px;
+  border-radius: 10px;
+  margin-top: 10px;
+  font-size: 18px;
+}
