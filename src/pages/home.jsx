@@ -6,7 +6,7 @@ function Home() {
         <div class="home">
             {/* Cover image + Find My Experience */}
             <div class="home_image">
-                <img src={require('../assets/plastic_waste.jpg')} alt="..." class='home_client_logo w-100' style={{height:600}}/>
+                <img src={require('../assets/planting.jpg')} alt="..." class='home_client_logo w-100' style={{height:600}}/>
 
                 <div class="home_text">
                     Engaging experiences driving change

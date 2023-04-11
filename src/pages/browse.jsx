@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import MultiRangeSlider from "../components/MultiRangeSlider";
 import {
   createBrowserRouter,
@@ -7,9 +7,7 @@ import {
 } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import {db} from '../firebase';
-import { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
-
 
 function BrowsePage() {
 
@@ -122,7 +120,7 @@ function BrowsePage() {
     })
 
      // FILTERING
-     data.map((item, index) => {
+      data.map((item, index) => {
       if (fcategories.length !== 0) {
         if (fcategories.includes(item[1].Exp_Pillar) === false) {
           var temp = id_list.indexOf(item[0]);
@@ -146,7 +144,7 @@ function BrowsePage() {
           </head>
           <body>
             <div class="container">
-              <div class="left-column">
+              <div class="col-sm-3 left-column">
               <nav class='filterby'>
                 <div>
                 <div class='filtertop'>
@@ -207,7 +205,7 @@ function BrowsePage() {
 
               </nav> 
               </div>
-              <div class="right-column">
+              <div class="col-sm-9 right-column">
                 <div class='found_header'>
                   <h4>{id_list.length} Activities Found</h4>
                 </div>
