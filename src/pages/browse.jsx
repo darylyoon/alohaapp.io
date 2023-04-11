@@ -122,7 +122,13 @@ function BrowsePage() {
      // FILTERING
       data.map((item, index) => {
       if (fcategories.length !== 0) {
-        if (fcategories.includes(item[1].Exp_Pillar) === false) {
+        for (var each of item[1].Exp_Pillar) {
+          var count = 0;
+          if (fcategories.includes(each) === false) {
+            count += 1
+          }
+        }
+        if (count === item[1].Exp_Pillar.length) {
           var temp = id_list.indexOf(item[0]);
           id_list.splice(temp, 1);
         }
