@@ -27,7 +27,7 @@ function App() {
         <Route path="/logout" element={<Logout/>}/>
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/checkout" element={<Checkout/>}/>
-        <Route path="/confirmation" element={<Confirmation/>}/>
+        <Route path="/confirmation/:booking_id" element={<Confirmation/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
     </div>

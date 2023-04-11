@@ -1,13 +1,13 @@
 import Carousel from 'react-bootstrap/Carousel';
 import React from 'react';
 
-function Carouselcomp() {
+function Carouselcomp(props) {
   return (
     <Carousel>
       <Carousel.Item>
         <img
-          className="d-block w-100"
-          src={require('../assets/plastic_waste.jpg')}
+          className="d-block w-100 carouimg"
+          src={props.img1}
           alt="First slide"
         />
         <Carousel.Caption>
@@ -17,8 +17,8 @@ function Carouselcomp() {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className="d-block w-100"
-          src={require('../assets/plastic_waste.jpg')}
+          className="d-block w-100 carouimg"
+          src={props.img2}
           alt="Second slide"
         />
 
@@ -29,8 +29,8 @@ function Carouselcomp() {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          className="d-block w-100"
-          src={require('../assets/plastic_waste.jpg')}
+          className="d-block w-100 carouimg"
+          src={props.img3}
           alt="Third slide"
         />
 
