@@ -62,13 +62,13 @@ function Dashboard() {
                                     <h5 className="card-title okok">Top 3 SDG Accomplished</h5><span className="card-text-smaller"> (Click for more)</span>
                                     <div className="row dbimgrow">
                                         <div className="col-3">
-                                            <img src={require("../assets/sus.png")} alt="sdg1" className="dbimg"/>
+                                            <img src={require("../assets/SDGs/SDG1.png")} alt="sdg1" className="dbimg"/>
                                         </div>
                                         <div className="col-3">
-                                            <img src={require("../assets/sus3.png")} alt="sdg1" className="dbimg"/>
+                                            <img src={require("../assets/SDGs/SDG1.png")} alt="sdg1" className="dbimg"/>
                                         </div>
                                         <div className="col-3">
-                                            <img src={require("../assets/sus5.png")} alt="sdg1" className="dbimg"/>
+                                            <img src={require("../assets/SDGs/SDG1.png")} alt="sdg1" className="dbimg"/>
                                         </div>
                                     </div>
                                 </div>

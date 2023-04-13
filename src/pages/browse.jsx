@@ -32,18 +32,28 @@ function BrowsePage() {
     navigate(`/pdp/${id}`);
   }
 
+  // function to cut string if more than 100 words and add '...'
+  function limitWords (str) {
+    var words = str.split(' ');
+    if (words.length > 50) {
+      return words.slice(0, 50).join(' ') + '...';
+    } else {
+      return str;
+    }
+  }
+
   const showExperience = () => {
     return data.map((item) => {
       if (id_list.includes(item[0])) {
         return (
           <a onClick={() => goPdp(item[0])} className='col-4'>
-          <div class="col-md-4 col-sm-6 col-xs-12 card">
-            <img src={require('../assets/test.png')} class="card-img-top hi" alt="..."/>
+          <div class="card">
+            <img src={item[1].Images[0]} class="card-img-top hi" alt="..."/>
             <div class="card-title">{item[1].ExpName}</div>
             <div class="card-description">
-              {item[1].Duration}<br/>
-              {item[1].Price.p_Pax}/pax
-              <p>{item[1].Exp_Sig}</p>
+              {item[1].Duration} hours<br/>
+              ${item[1].Price.p_Pax} / pax
+              <p>{limitWords(item[1].Exp_Sig)}</p>
             </div>
           </div>
           </a>
