@@ -49,13 +49,12 @@ function Pdp() {
     }
 
     function susImg(object) {
+        var store = [];
         // loop through object
         for (let key in object) {
-            console.log(object[key].SDG_No);
-            return (
-                <img src={require(`../assets/SDGs/SDG${object[key].SDG_No}.png`).default} alt="..." class='pdp_sus_img'/>
-            )
+            store.push(<img src={require(`../assets/SDGs/SDG${object[key].SDG_No}.png`)} alt="..." class='pdp_sus_img'/>)
         }
+        return store;
     }
 
     if (data.length !== 0 && partner.length !== 0) {

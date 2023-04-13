@@ -280,7 +280,7 @@ li{
 }
 
 .pdp_who{
-  padding-top: 100px;
+  padding-top: 50px;
 
 }
 
@@ -296,6 +296,7 @@ li{
   padding-bottom: 20px;
 }
 
+
 .pdp_client_logo{
   /* make logo smaller */
   width: 35px !important;
@@ -308,7 +309,7 @@ li{
   padding-top: 10px;
 }
 
-.pdp li{
+.pdp_who_details li{
   list-style-type: circle !important;
 }
 
@@ -371,13 +372,14 @@ ul .btn{
   height: -webkit-fill-available;
   padding-left: 50px; 
   padding-right: 50px;
-
 }
 
 .sus_img{
   padding-right: 100px;
   padding-left: 100px;
   padding-top: 20px;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .pdp .slide{

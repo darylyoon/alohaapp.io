@@ -10,9 +10,11 @@ function Confirmation() {
 
     const {booking_id} = useParams();
     const [data, setData] = useState({});
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [isSubscribed, setIsSubscribed] = useState(true);
     const [date, setDate] = useState("")
+    const [startDate, setStartDate] = useState("")
+    const [endDate, setEndDate] = useState("")
     const [time, setTime] = useState("")
     useEffect(() => {
         const getBooking = async () => {
@@ -52,7 +54,8 @@ function Confirmation() {
             let date_of = format_date.getDate();
             let day_of_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
             let month_of_year = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-            console.log(`${date_of} ${month_of_year[month]} ${year}, ${day_of_week[day]}`);
+            setStartDate(`${year}-${m}-${d}`);
+            setEndDate(`${year}-${m}-${d}`);
             setDate(`${date_of} ${month_of_year[month]} ${year}, ${day_of_week[day]}`);
             setTime(timing);
             setLoading(false);
@@ -65,6 +68,7 @@ function Confirmation() {
     if (loading) {
         return <div>Loading...</div>
     }
+
     return (
         <div className="confirmation">
             <img src={require('../assets/plant.png')} alt="..."/>
@@ -97,20 +101,20 @@ function Confirmation() {
                         <p className="card-text"><b>Time:</b><br/>9:00am - 12:00pm</p>
                         <p className="card-text"><b>Participants:</b><br/>49</p>
                         <p className="card-text"><b>Date:</b><br/>21 February 2023, Monday</p> */}
-                        <add-to-calendar-button
+                        {!isSubscribed ? (<add-to-calendar-button
                             options="'Apple','Google','MicrosoftTeams'"
                             buttonsList='true'
                             buttonStyle="round"
                             hideTextLabelButton="true"
-                            name="Title"
-                            location="World Wide Web"
-                            startDate="2023-04-13"
-                            endDate="2023-04-13"
-                            startTime="10:15"
-                            endTime="23:30"
+                            name={data.ExpName}
+                            location={data.Exp_Loc}
+                            startDate={startDate}
+                            endDate={endDate}
+                            startTime={time.slice(0, 5)}
+                            endTime={time.slice(8, 13)}
                             timeZone="Asia/Singapore"
                             size="4"
-                        ></add-to-calendar-button>
+                        ></add-to-calendar-button>): null}
                     </div>
                     </div>
                 </div>
