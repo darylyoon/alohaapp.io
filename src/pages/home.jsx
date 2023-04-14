@@ -116,6 +116,9 @@ function Home() {
                         <img src={require('../assets/customer_journey.png')} alt="" class='customer_journey_image'/>
                         {/* <Blob height={500} radius={100} color='#FD7133' markers='true' sensitivity='0.3'/> */}
                     </div>
+                    <div class="customer_journey_fme">
+                    <Questionnaire/>
+                    </div>
                 </div>
             </div>
         </div>

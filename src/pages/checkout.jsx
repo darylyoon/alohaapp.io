@@ -17,6 +17,7 @@ function Checkout() {
   const date = location.state.date;
   const time = location.state.time;
   const partner = location.state.partner;
+  console.log(date);
 
   // console.log(booking);
 
@@ -77,6 +78,13 @@ function Checkout() {
     );
   }
 
+  function databaseDate(date) {
+    const d = date.getDate();
+    const m = date.getMonth();
+    const y = date.getYear() - 100;
+    return `${d < 10 ? "0" + d : d}/${m < 10 ? "0" + m : m}/${y}`;
+  }
+
   function onChangeAmount(e) {
     setAmount(e.target.value);
   }
@@ -84,7 +92,7 @@ function Checkout() {
   function goStripe(data, date, time, amount) {
     let booking_id = 0;
     while (true) {
-      booking_id = Math.floor(Math.random() * 10000000);
+      booking_id = Math.floor(Math.random() * (99999999 - 10000000 + 1) + 10000000);
       let str_booking_id = String(booking_id);
       if (!booking[0].includes(str_booking_id)) {
         break;
@@ -100,21 +108,22 @@ function Checkout() {
     const companyAddressInput = document.getElementById("companyAddress").value;
 
     const bookingInfo = {
-      BookingID: booking_id,
-      Date: date,
-      Time: time,
+      Date: databaseDate(date),
       ExpID: data[0],
       ExpName: data[1].ExpName,
-      ExpLoc: data[1].Exp_Loc,
+      BookingID: booking_id,
+      Exp_Loc: data[1].Exp_Loc,
+      Time: time,
       pay_amount: parseFloat(amount),
       bookerDetails: {
+        companyAddress: companyAddressInput,
+        companyName: companyNameInput,
+        email: emailInput,
         firstName: firstNameInput,
         lastName: lastNameInput,
-        email: emailInput,
         phone: mobileNumberInput,
-        companyName: companyNameInput,
-        companyAddress: companyAddressInput,
       },
+      noOfPax: null
     };
 
     navigate(`/stripe`, { state: { bookingInfo: bookingInfo } });
