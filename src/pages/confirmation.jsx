@@ -31,12 +31,13 @@ function Confirmation() {
         console.log("Document data:", docSnap.data());
         setData(docSnap.data());
         setLoading(false);
+        setIsSubscribed(false);
       } else {
         console.log("No such document!");
       }
     };
     getBooking().catch(console.error);
-    return () => setIsSubscribed(false);
+    // return () => setIsSubscribed(false);
   }, [booking_id, isSubscribed]);
 
   // edit the data stored from useState data (time needs to be from e.g. 1000 - 1200 to 10:00am - 12:00pm) with setData
@@ -88,7 +89,6 @@ function Confirmation() {
       editData();
     }
   }, [loading, data.Time, data.Date]);
-
   if (loading) {
     return <div>Loading...</div>;
   }
