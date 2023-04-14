@@ -29,6 +29,22 @@ function Navbar() {
         }
     }
 
+    if (window.location.href.includes('/checkout')) {
+        // hide navbar when in checkout page
+        return (
+            <div>
+            </div>
+        );
+    }
+
+    if (window.location.href.includes('/stripe')) {
+        // hide navbar when in stripe page
+        return (
+            <div>
+            </div>
+        );
+    }
+
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-light">

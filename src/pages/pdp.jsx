@@ -13,6 +13,12 @@ function Pdp() {
 
     const [partner, setPartner] = useState([]);
 
+    const [availability, setAvailability] = useState([]);
+
+    const navigate = useNavigate();
+
+    console.log(data, partner, availability);
+
     useEffect(() => {
         const all = async () => {
             await getDocs(collection(db, "Experiences"))
@@ -40,6 +46,22 @@ function Pdp() {
         all();
     }, []);
 
+    useEffect(() => {
+        const all = async () => {
+            await getDocs(collection(db, "Availability"))
+            .then((querySnapshot) => {
+            const info = querySnapshot.docs.map((doc) => [doc.id,doc.data()]);
+            for (let i = 0; i < info.length; i++) {
+                if (info[i][0] === id.exp_id) {
+                    setAvailability(info[i]);
+                }
+            };
+        }
+        )
+        }
+        all();
+    }, []);
+
     function learningOutcomes(array) {
         return array.map((item) => {
             return (
@@ -49,12 +71,109 @@ function Pdp() {
     }
 
     function susImg(object) {
-        var store = [];
         // loop through object
         for (let key in object) {
-            store.push(<img src={require(`../assets/SDGs/SDG${object[key].SDG_No}.png`)} alt="..." class='pdp_sus_img'/>)
+            console.log(object[key].SDG_No);
+            return (
+                <img src={require(`../assets/SDGs/SDG${object[key].SDG_No}.png`).default} alt="..." class='pdp_sus_img'/>
+            )
         }
-        return store;
+    }
+
+    function goCheckout(data, partner, date, time) {
+        console.log(availability)
+        navigate(`/checkout`, {state: {data: data, partner: partner, date: date, time: time}});
+    }
+
+    function convertDate(date) {
+        let splitDate = date.split('/');
+        let newDate = new Date(splitDate[2], splitDate[1] - 1, splitDate[0]);
+        return newDate;
+    }
+    
+    function convertDuration(time, duration) {
+        let durationMin = duration * 60;
+        let hours = Math.floor(durationMin / 60);
+        let minutes = durationMin % 60;
+        let endHour = parseInt(time[0] + time[1]) + hours;
+        let endMinutes = parseInt(time[2] + time[3]) + minutes;
+        if (endMinutes >= 60) {
+            endHour += 1;
+            endMinutes -= 60;
+        }
+        if (endMinutes < 10) {
+            endMinutes = '0' + endMinutes;
+        }
+        if (endHour < 10) {
+            endHour = '0' + endHour;
+        }
+        // convert to 12 hour time and add am/pm
+        let startHour = parseInt(time[0] + time[1]);
+        let startMinutes = parseInt(time[2] + time[3]);
+        let startAmPm = null
+        let endAmPm = null;
+        if (startHour > 12) {
+            startHour -= 12;
+            startAmPm = 'pm';
+        }
+        else {
+            startAmPm = 'am';
+        }
+        if (startHour < 10) {
+            startHour = '0' + startHour;
+        }
+        if (startMinutes < 10) {
+            startMinutes = '0' + startMinutes;
+        }
+        if (endHour > 12) {
+            endHour -= 12;
+            endAmPm = 'pm';
+        }
+        else {
+            endAmPm = 'am';
+        }
+
+        let startTime = startHour + ':' + startMinutes + startAmPm;
+        let endTime = endHour + ':' + endMinutes + endAmPm;
+
+        return startTime + ' - ' + endTime;
+    }
+
+    function showTimeSlots() {
+        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        // map the availability object
+        return Object.keys(availability[1]).map((date) => {
+            // convert date to date object
+            let newDate = convertDate(date);
+            // if timeslot in date is true, console log the date and time
+            return Object.keys(availability[1][date]).map((time) => {
+                let newTime = convertDuration(time, data[1].Duration)
+                if (availability[1][date][time] === true) {
+                    return (
+                        <li>
+                            <div class='row'>
+                                <div class='col-6'>
+                                    <p>{days[newDate.getDay()] + ', ' + newDate.getDate() + ' ' + months[newDate.getMonth()]}</p>
+                                    <p>{newTime}</p>
+                                    <p>{data[1].Max_Part} Slots Left</p>
+                                </div>
+                                <div class='col-6 ppp_btn'>
+                                    <div class='row'>
+                                        <div class='col-12'>
+                                            <p><span class='ppp'>${data[1].Price.p_Pax}</span> / person</p>
+                                        </div>
+                                        <div class='col-12'>
+                                            <button type='button' class='btn' onClick={() => goCheckout(data, partner, newDate, newTime)}>Choose</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    )
+                }
+            })
+        })
     }
 
     if (data.length !== 0 && partner.length !== 0) {
@@ -87,7 +206,7 @@ function Pdp() {
                                             <p>From</p>
                                         </div>
                                         <div class="col-6">
-                                            <p class='ppp_head'><span class='ppp_big'>$95.00</span><span class='per'> / person</span></p>
+                                            <p class='ppp_head'><span class='ppp_big'>${data[1].Price.p_Pax}</span><span class='per'> / person</span></p>
                                         </div>
                                     </div>
                                     {/* <div class="row">
@@ -105,66 +224,9 @@ function Pdp() {
                                     <div class="pricing_date">
                                         {/* unordered list of dates */}
                                         <ul>
-                                            <li>
-                                                <div class='row'>
-                                                    <div class='col-6'>
-                                                        <p>Mon, 20 Feb</p>
-                                                        <p>9:00am - 12:00pm</p>
-                                                        <p>43 Slots Left</p>
-                                                    </div>
-                                                    <div class='col-6 ppp_btn'>
-                                                        <div class='row'>
-                                                            <div class='col-12'>
-                                                            <p><span class='ppp'>$95.00</span> / person</p>
-                                                            </div>
-                                                            <div class='col-12'>
-                                                            <button type='button' class='btn'>Choose</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr/>
-                                            </li>
-                                            <li>
-                                                <div class='row'>
-                                                    <div class='col-6'>
-                                                        <p>Mon, 20 Feb</p>
-                                                        <p>9:00am - 12:00pm</p>
-                                                        <p>43 Slots Left</p>
-                                                    </div>
-                                                    <div class='col-6 ppp_btn'>
-                                                        <div class='row'>
-                                                            <div class='col-12'>
-                                                            <p><span class='ppp'>$95.00</span> / person</p>
-                                                            </div>
-                                                            <div class='col-12'>
-                                                            <button type='button' class='btn'>Choose</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr/>
-                                            </li>
-                                            <li>
-                                                <div class='row'>
-                                                    <div class='col-6'>
-                                                        <p>Mon, 20 Feb</p>
-                                                        <p>9:00am - 12:00pm</p>
-                                                        <p>43 Slots Left</p>
-                                                    </div>
-                                                    <div class='col-6 ppp_btn'>
-                                                        <div class='row'>
-                                                            <div class='col-12'>
-                                                            <p><span class='ppp'>$95.00</span> / person</p>
-                                                            </div>
-                                                            <div class='col-12'>
-                                                            <button type='button' class='btn'>Choose</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <hr/>
-                                            </li>
+                                            
+                                            {showTimeSlots()}
+                                            
                                         </ul>
                                     </div>
                                 </div>

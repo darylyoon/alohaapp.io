@@ -1,10 +1,99 @@
-import React from "react";
+import { React,  useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { collection, getDocs } from "firebase/firestore";
+import {db} from '../firebase';
+import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js';
+import getPaymentIntent from '../stripe-use';
+import { useLocation } from 'react-router-dom';
 
 function Checkout() {
+
+    const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const [booking, setBooking] = useState([]);
+
+    const data = location.state.data;
+    const date = location.state.date;
+    const time = location.state.time;
+    const partner = location.state.partner;
+
+    console.log(booking)
+
+    console.log(location.state);
+    // console.log(location.state.data);
+
+    useEffect(() => {
+        const all = async () => {
+            await getDocs(collection(db, "Booking"))
+            .then((querySnapshot) => {
+                const info = querySnapshot.docs.map((doc) => [doc.id,doc.data()]);
+                setBooking(info);
+            })
+            }
+            all();
+        }, []);
+
+    function goBack() {
+        navigate(-1);
+    }
+
+    function convertDate(date) {
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        return date.getDate() + " " + months[date.getMonth()] + " " + date.getYear() + ", " + days[date.getDay()]
+    }
+
+    function goStripe(data, date, time) {
+        let booking_id = 0;
+        while (true) {
+            booking_id = Math.floor(Math.random() * 10000000);
+            let str_booking_id = String(booking_id)
+            if (!booking[0].includes(str_booking_id)) {
+                break;
+            }
+        }
+        console.log(booking_id)
+
+        const firstNameInput = document.getElementById("firstName").value;
+        const lastNameInput = document.getElementById("lastName").value;
+        const emailInput = document.getElementById("email").value;
+        const mobileNumberInput = document.getElementById("mobileNumber").value;
+        const companyNameInput = document.getElementById("companyName").value;
+        const companyAddressInput = document.getElementById("companyAddress").value;
+
+        const bookingInfo = {
+            "firstName": firstNameInput,
+            "lastName": lastNameInput,
+            "email": emailInput,
+            "mobileNumber": mobileNumberInput,
+            "companyName": companyNameInput,
+            "Date": date,
+            "Time": time,
+            "ExpID": data[0],
+            "ExpName": data[1].ExpName,
+            "ExpLoc": data[1].ExpLoc,
+            "bookerDetails": {
+                "firstName": firstNameInput,
+                "lastName": lastNameInput,
+                "email": emailInput,
+                "phone": mobileNumberInput,
+                "companyName": companyNameInput,
+                "companyAddress": companyAddressInput
+            },
+        }
+
+        navigate(`/stripe`, {state: {bookingInfo: bookingInfo}});
+    }
+
+    
     return (
         <div class="checkout">
             {/* Checkout Back Button */}
-            <button class="checkout_back_button">
+            <button class="checkout_back_button" onClick={() => goBack()}>
                 <span class="arrow_back">&#8249;</span>
                 <span class="back_text">Back</span>
             </button>
@@ -23,26 +112,26 @@ function Checkout() {
                         <table class="experience_detail_table w-auto">
                             <tr>
                                 <td class="w-25" rowSpan={5}>
-                                    <img class="experience_cover_image" src={require('../assets/plastic_waste.jpg')} alt="" />
+                                    <img class="experience_cover_image" src={location.state.data[1].Images[0]} alt="" />
                                 </td>
                                 <th class="experience_title w-75" colSpan={2}>
-                                    Lunch & Learn: Let's Stop Eating Plastic
+                                    {location.state.data[1].ExpName}
                                 </th>
                             </tr>
 
                             <tr>
                                 <td className="detail_alignment">Date:</td>
-                                <td className="detail_alignment">21 February 2023, Monday</td>
+                                <td className="detail_alignment">{convertDate(location.state.date)}</td>
                             </tr>
 
                             <tr>
                                 <td className="detail_alignment">Location:</td>
-                                <td className="detail_alignment">Clementi Park Singapore 123456</td>
+                                <td className="detail_alignment">{location.state.data[1].Exp_Loc}</td>
                             </tr>
 
                             <tr>
                                 <td className="detail_alignment">Time:</td>
-                                <td className="detail_alignment">09:00am - 12:00pm</td>
+                                <td className="detail_alignment">{location.state.time}</td>
                             </tr>
 
                             <tr>
@@ -63,7 +152,7 @@ function Checkout() {
 
                     <div class="row co_price">
                         <div class="col-6 leftside">
-                            <p>$95.00</p>
+                            <p>${location.state.data[1].Price.p_Pax}</p>
                         </div>
                         <div class="col-6 rightside">
                             <p>x49</p>
@@ -122,50 +211,32 @@ function Checkout() {
                     <div class="row">
                         <div className="col-6">
                             <label for="name">First Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="First Name"/>
+                            <input type="text" class="form-control" id="firstName" aria-describedby="basic-addon3" placeholder="First Name"/>
                         </div>
                         <div className="col-6">
                             <label for="name">Last Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="Last Name"/>
+                            <input type="text" class="form-control" id="lastName" aria-describedby="basic-addon3" placeholder="Last Name"/>
                         </div>
                     </div>
 
                     <div class="row">
                         <div className="col-6">
                             <label for="name">Email</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="Email"/>
+                            <input type="text" class="form-control" id="email" aria-describedby="basic-addon3" placeholder="Email"/>
                         </div>
                         <div className="col-6">
                             <label for="email">Mobile Number</label>
-                            <input type="text" class="form-control" id="email" aria-describedby="basic-addon3" placeholder="Mobile Number"/>
+                            <input type="text" class="form-control" id="mobileNumber" aria-describedby="basic-addon3" placeholder="Mobile Number"/>
                         </div>
                     </div>
 
                     <label for="card">Company Name</label>
-                    <input type="text" class="form-control" id="card" aria-describedby="basic-addon3" placeholder="Company Name"/>
+                    <input type="text" class="form-control" id="companyName" aria-describedby="basic-addon3" placeholder="Company Name"/>
 
-                    <div class='row'>
-                        <div className="col-6">
-                            <h3 className="headerscnd">Payment</h3>
-                        </div>
-                        <div className="col-6">
-                            <img class="checkout_form_header_img" src={require('../assets/visa.png')} alt="" />
-                            <img class="checkout_form_header_img" src={require('../assets/mastercard.png')} alt="" />
-                        </div>
-                    </div>
-                    <hr/>
+                    <label for="card">Company Address</label>
+                    <input type="text" class="form-control" id="companyAddress" aria-describedby="basic-addon3" placeholder="Company Address"/>
 
-                    <label for="name">Name on Card</label>
-                    <input type="text" class="form-control" id="name" aria-describedby="basic-addon3" placeholder="Name on card"/>
-
-                    <label for="card">Card Information</label>
-                    <input type="text" class="form-control" id="card" aria-describedby="basic-addon3" placeholder="Card Number"/>
-                    <div class="input-group carddeets2">
-                        <input type="text" class="form-control" placeholder="MMYY"/>
-                        <input type="text" class="form-control" placeholder="CCV"/>
-                    </div>
-
-                    <button type="button" class="btn pay_btn">Pay</button>
+                    <button type="button" class="btn pay_btn" onClick={() => goStripe(data, date, time)}>Checkout</button>
                 </div>
                 
             </div>
