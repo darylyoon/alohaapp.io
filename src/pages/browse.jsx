@@ -67,11 +67,21 @@ function BrowsePage() {
     return parseInt(str.replace(/[^0-9]/g, ''));
   }
 
+  //function to compare dates date 1 'yyyy-mm-dd' and date 2 'dd/mm/yy'
+  function compareDates (date1, date2) {
+    // cchange date 2 format to 'yyyy-mm-dd'
+    if (d1 > d2) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   const [fcategories, setCategories] = useState([]);
   const [fparticipants, setParticipants] = useState('');
   const [fbudget, setBudget] = useState([]);
-  
-  // const [fdate, setDate] = useState('');
+  const [fSdate, setSDate] = useState('');
+  const [fEdate, setEDate] = useState('');
 
   if (data[0] !== undefined) {
 
@@ -99,9 +109,20 @@ function BrowsePage() {
       }
     }
 
+    function checkstartdate (e) {
+        setSDate(e.target.value);
+    }
+
+    function checkenddate (e) {
+        setEDate(e.target.value);
+    }
+
     function clearAll (e) {
       setCategories([]);
       setParticipants('');
+      setBudget([]);
+      setSDate('');
+      setEDate('');
       // unselect all checkboxes
       var checkboxes = document.querySelectorAll('input[type=checkbox]');
       for (var checkbox of checkboxes) {
@@ -136,6 +157,23 @@ function BrowsePage() {
 
       if (fparticipants !== null) {
         if (fparticipants > item[1].Max_Part) {
+          var temp = id_list.indexOf(item[0]);
+          id_list.splice(temp, 1);
+        }
+      }
+
+      console.log(fSdate, fEdate);
+
+      // check start and end date
+      if (fSdate !== '') {
+        if (compareDates(fSdate, item[1].Timeslot_Day.startDate)===false) {
+          var temp = id_list.indexOf(item[0]);
+          id_list.splice(temp, 1);
+        }
+      }
+
+      if (fEdate !== '') {
+        if (compareDates(fEdate,item[1].Timeslot_Day.endDate)===true) {
           var temp = id_list.indexOf(item[0]);
           id_list.splice(temp, 1);
         }
@@ -199,10 +237,10 @@ function BrowsePage() {
                   <li>
                     <div class='row dates'>
                       <div class='col-6'>
-                        <p>Start Date:</p><input type="date"/>
+                        <p>Start Date:</p><input type="date" onChange={checkstartdate}/>
                         </div>
                         <div class='col-6'>
-                        <p>End Date:</p><input type="date"/>
+                        <p>End Date:</p><input type="date" onChange={checkenddate}/>
                         </div>
                     </div>
                     </li> 
