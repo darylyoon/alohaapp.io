@@ -1,9 +1,12 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
+import { useNavigate } from 'react-router-dom';
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
+  const booking_id = props.booking.BookingID;
+  // console.log(props.booking.BookingID);
   const stripe = useStripe();
   const elements = useElements();
-
+  const navigate = useNavigate();
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
@@ -18,9 +21,7 @@ const CheckoutForm = () => {
     const result = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
       elements,
-      confirmParams: {
-        return_url: "https://www.google.com",
-      },
+      redirect: "if_required"
     });
 
     if (result.error) {
@@ -30,25 +31,11 @@ const CheckoutForm = () => {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
+      navigate(`/confirmation/${booking_id}`);
     }
   };
   const options = {
     layout: "accordion",
-    defaultValues: {
-      billingDetails: {
-        name: "Jenny Rosen",
-        email: "",
-        phone: "",
-        address: {
-          line1: "510 Townsend St",
-          line2: "Apt 5",
-          city: "San Francisco",
-          state: "CA",
-          country: "US",
-          postal_code: "94103",
-        }
-      }
-    }
   };
   return (
     <form onSubmit={handleSubmit}>

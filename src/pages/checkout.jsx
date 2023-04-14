@@ -2,9 +2,6 @@ import { React, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import getPaymentIntent from "../stripe-use";
 import { useLocation } from "react-router-dom";
 
 function Checkout() {
@@ -13,26 +10,32 @@ function Checkout() {
   const location = useLocation();
 
   const [booking, setBooking] = useState([]);
+  const [amount, setAmount] = useState(0);
+  const [isSubscribed, setIsSubscribed] = useState(true);
 
   const data = location.state.data;
   const date = location.state.date;
   const time = location.state.time;
   const partner = location.state.partner;
 
-  console.log(booking);
+  // console.log(booking);
 
-  console.log(location.state);
+  // console.log(location.state);
   // console.log(location.state.data);
 
   useEffect(() => {
     const all = async () => {
       await getDocs(collection(db, "Booking")).then((querySnapshot) => {
+        if (!isSubscribed) {
+          return;
+        }
         const info = querySnapshot.docs.map((doc) => [doc.id, doc.data()]);
         setBooking(info);
       });
     };
     all();
-  }, []);
+    return () => setIsSubscribed(false);
+  }, [isSubscribed]);
 
   function goBack() {
     navigate(-1);
@@ -74,7 +77,11 @@ function Checkout() {
     );
   }
 
-  function goStripe(data, date, time) {
+  function onChangeAmount(e) {
+    setAmount(e.target.value);
+  }
+
+  function goStripe(data, date, time, amount) {
     let booking_id = 0;
     while (true) {
       booking_id = Math.floor(Math.random() * 10000000);
@@ -83,7 +90,7 @@ function Checkout() {
         break;
       }
     }
-    console.log(booking_id);
+    // console.log(booking_id);
 
     const firstNameInput = document.getElementById("firstName").value;
     const lastNameInput = document.getElementById("lastName").value;
@@ -93,16 +100,13 @@ function Checkout() {
     const companyAddressInput = document.getElementById("companyAddress").value;
 
     const bookingInfo = {
-      firstName: firstNameInput,
-      lastName: lastNameInput,
-      email: emailInput,
-      mobileNumber: mobileNumberInput,
-      companyName: companyNameInput,
+      BookingID: booking_id,
       Date: date,
       Time: time,
       ExpID: data[0],
       ExpName: data[1].ExpName,
       ExpLoc: data[1].Exp_Loc,
+      pay_amount: parseFloat(amount),
       bookerDetails: {
         firstName: firstNameInput,
         lastName: lastNameInput,
@@ -207,11 +211,11 @@ function Checkout() {
             <div class="row">
               <ul class="co_options">
                 <li class="r1">
-                  <input type="radio" name="checkout" value={4000} checked />
+                  <input type="radio" name="checkout" value={4000} onChange={onChangeAmount} checked={amount === "4000"} />
                   <span>Pay full amount of $4, 655.00 to book</span>
                 </li>
                 <li class="r2">
-                  <input type="radio" name="checkout" value={200} />
+                  <input type="radio" name="checkout" value={200} onChange={onChangeAmount} checked={amount === "200"} />
                   <span>Pay partial amount of $200.00* </span>
                 </li>
               </ul>
@@ -314,7 +318,7 @@ function Checkout() {
             <button
               type="button"
               class="btn pay_btn"
-              onClick={() => goStripe(data, date, time)}
+              onClick={() => goStripe(data, date, time, amount)}
             >
               Checkout
             </button>
