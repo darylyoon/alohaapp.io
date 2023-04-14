@@ -1,6 +1,7 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
-
+import { collection, setDoc, doc } from "firebase/firestore";
+import { db } from '../firebase';
 const CheckoutForm = (props) => {
   const booking_id = props.booking.BookingID;
   // console.log(props.booking.BookingID);
@@ -31,6 +32,10 @@ const CheckoutForm = (props) => {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
+      // store props into firebase firestore
+      // remove bookingID from props.booking
+      delete props.booking.BookingID;
+      const docRef = await setDoc(doc(db, "Booking", `B${booking_id}`), props.booking);
       navigate(`/confirmation/${booking_id}`);
     }
   };
