@@ -1,215 +1,245 @@
-import React from 'react';
-import Carouselcomp from '../components/carousel';
-import { Link , useParams} from 'react-router-dom';
+import React from "react";
+import Carouselcomp from "../components/carousel";
+import { Link, useParams } from "react-router-dom";
 import { collection, getDocs } from "firebase/firestore";
-import {db} from '../firebase';
-import { useState, useEffect } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { db } from "../firebase";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Pdp() {
-    const id = useParams(); 
-    
-    const [data, setData] = useState([]);
+  const id = useParams();
 
-    const [partner, setPartner] = useState([]);
+  const [data, setData] = useState([]);
 
-    const [availability, setAvailability] = useState([]);
+  const [partner, setPartner] = useState([]);
 
-    const navigate = useNavigate();
+  const [availability, setAvailability] = useState([]);
 
-    console.log(data, partner, availability);
+  const navigate = useNavigate();
 
-    useEffect(() => {
-        const all = async () => {
-            await getDocs(collection(db, "Experiences"))
-            .then((querySnapshot) => {
-            const info = querySnapshot.docs.map((doc) => [doc.id,doc.data()]);
-            for (let i = 0; i < info.length; i++) {
-                if (info[i][0] === id.exp_id) {
-                    setData(info[i]);
-                }
-            }
-            })
+  console.log(data, partner, availability);
+
+  useEffect(() => {
+    const all = async () => {
+      await getDocs(collection(db, "Experiences")).then((querySnapshot) => {
+        const info = querySnapshot.docs.map((doc) => [doc.id, doc.data()]);
+        for (let i = 0; i < info.length; i++) {
+          if (info[i][0] === id.exp_id) {
+            setData(info[i]);
+          }
         }
-        all();
-    }, []);
+      });
+    };
+    all();
+  }, []);
 
-    useEffect(() => {
-        const all = async () => {
-            await getDocs(collection(db, "Exp_Partner"))
-            .then((querySnapshot) => {
-            const info = querySnapshot.docs.map((doc) => [doc.id,doc.data()]);
-            setPartner(info);
-        }
-        )
-        }
-        all();
-    }, []);
+  useEffect(() => {
+    const all = async () => {
+      await getDocs(collection(db, "Exp_Partner")).then((querySnapshot) => {
+        const info = querySnapshot.docs.map((doc) => [doc.id, doc.data()]);
+        setPartner(info);
+      });
+    };
+    all();
+  }, []);
 
-    useEffect(() => {
-        const all = async () => {
-            await getDocs(collection(db, "Availability"))
-            .then((querySnapshot) => {
-            const info = querySnapshot.docs.map((doc) => [doc.id,doc.data()]);
-            for (let i = 0; i < info.length; i++) {
-                if (info[i][0] === id.exp_id) {
-                    setAvailability(info[i]);
-                }
-            };
+  useEffect(() => {
+    const all = async () => {
+      await getDocs(collection(db, "Availability")).then((querySnapshot) => {
+        const info = querySnapshot.docs.map((doc) => [doc.id, doc.data()]);
+        for (let i = 0; i < info.length; i++) {
+          if (info[i][0] === id.exp_id) {
+            setAvailability(info[i]);
+          }
         }
-        )
-        }
-        all();
-    }, []);
+      });
+    };
+    all();
+  }, []);
 
-    function learningOutcomes(array) {
-        return array.map((item) => {
-            return (
-                <li>{item}</li>
-            )
-        })
+  function learningOutcomes(array) {
+    return array.map((item) => {
+      return <li>{item}</li>;
+    });
+  }
+
+  function susImg(object) {
+    // loop through object
+    for (let key in object) {
+      console.log(object[key].SDG_No);
+      return (
+        <img
+          src={require(`../assets/SDGs/SDG${object[key].SDG_No}.png`).default}
+          alt="..."
+          class="pdp_sus_img"
+        />
+      );
+    }
+  }
+
+  function goCheckout(data, partner, date, time) {
+    console.log(availability);
+    navigate(`/checkout`, {
+      state: { data: data, partner: partner, date: date, time: time },
+    });
+  }
+
+  function convertDate(date) {
+    let splitDate = date.split("/");
+    let newDate = new Date(splitDate[2], splitDate[1] - 1, splitDate[0]);
+    return newDate;
+  }
+
+  function convertDuration(time, duration) {
+    let durationMin = duration * 60;
+    let hours = Math.floor(durationMin / 60);
+    let minutes = durationMin % 60;
+    let endHour = parseInt(time[0] + time[1]) + hours;
+    let endMinutes = parseInt(time[2] + time[3]) + minutes;
+    if (endMinutes >= 60) {
+      endHour += 1;
+      endMinutes -= 60;
+    }
+    if (endMinutes < 10) {
+      endMinutes = "0" + endMinutes;
+    }
+    if (endHour < 10) {
+      endHour = "0" + endHour;
+    }
+    // convert to 12 hour time and add am/pm
+    let startHour = parseInt(time[0] + time[1]);
+    let startMinutes = parseInt(time[2] + time[3]);
+    let startAmPm = null;
+    let endAmPm = null;
+    if (startHour > 12) {
+      startHour -= 12;
+      startAmPm = "pm";
+    } else {
+      startAmPm = "am";
+    }
+    if (startHour < 10) {
+      startHour = "0" + startHour;
+    }
+    if (startMinutes < 10) {
+      startMinutes = "0" + startMinutes;
+    }
+    if (endHour > 12) {
+      endHour -= 12;
+      endAmPm = "pm";
+    } else {
+      endAmPm = "am";
     }
 
-    function susImg(object) {
-        // loop through object
-        for (let key in object) {
-            console.log(object[key].SDG_No);
-            return (
-                <img src={require(`../assets/SDGs/SDG${object[key].SDG_No}.png`).default} alt="..." class='pdp_sus_img'/>
-            )
-        }
-    }
+    let startTime = startHour + ":" + startMinutes + startAmPm;
+    let endTime = endHour + ":" + endMinutes + endAmPm;
 
-    function goCheckout(data, partner, date, time) {
-        console.log(availability)
-        navigate(`/checkout`, {state: {data: data, partner: partner, date: date, time: time}});
-    }
+    return startTime + " - " + endTime;
+  }
 
-    function convertDate(date) {
-        let splitDate = date.split('/');
-        let newDate = new Date(splitDate[2], splitDate[1] - 1, splitDate[0]);
-        return newDate;
-    }
-    
-    function convertDuration(time, duration) {
-        let durationMin = duration * 60;
-        let hours = Math.floor(durationMin / 60);
-        let minutes = durationMin % 60;
-        let endHour = parseInt(time[0] + time[1]) + hours;
-        let endMinutes = parseInt(time[2] + time[3]) + minutes;
-        if (endMinutes >= 60) {
-            endHour += 1;
-            endMinutes -= 60;
-        }
-        if (endMinutes < 10) {
-            endMinutes = '0' + endMinutes;
-        }
-        if (endHour < 10) {
-            endHour = '0' + endHour;
-        }
-        // convert to 12 hour time and add am/pm
-        let startHour = parseInt(time[0] + time[1]);
-        let startMinutes = parseInt(time[2] + time[3]);
-        let startAmPm = null
-        let endAmPm = null;
-        if (startHour > 12) {
-            startHour -= 12;
-            startAmPm = 'pm';
-        }
-        else {
-            startAmPm = 'am';
-        }
-        if (startHour < 10) {
-            startHour = '0' + startHour;
-        }
-        if (startMinutes < 10) {
-            startMinutes = '0' + startMinutes;
-        }
-        if (endHour > 12) {
-            endHour -= 12;
-            endAmPm = 'pm';
-        }
-        else {
-            endAmPm = 'am';
-        }
-
-        let startTime = startHour + ':' + startMinutes + startAmPm;
-        let endTime = endHour + ':' + endMinutes + endAmPm;
-
-        return startTime + ' - ' + endTime;
-    }
-
-    function showTimeSlots() {
-        const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        // map the availability object
-        return Object.keys(availability[1]).map((date) => {
-            // convert date to date object
-            let newDate = convertDate(date);
-            // if timeslot in date is true, console log the date and time
-            return Object.keys(availability[1][date]).map((time) => {
-                let newTime = convertDuration(time, data[1].Duration)
-                if (availability[1][date][time] === true) {
-                    return (
-                        <li>
-                            <div class='row'>
-                                <div class='col-6'>
-                                    <p>{days[newDate.getDay()] + ', ' + newDate.getDate() + ' ' + months[newDate.getMonth()]}</p>
-                                    <p>{newTime}</p>
-                                    <p>{data[1].Max_Part} Slots Left</p>
-                                </div>
-                                <div class='col-6 ppp_btn'>
-                                    <div class='row'>
-                                        <div class='col-12'>
-                                            <p><span class='ppp'>${data[1].Price.p_Pax}</span> / person</p>
-                                        </div>
-                                        <div class='col-12'>
-                                            <button type='button' class='btn' onClick={() => goCheckout(data, partner, newDate, newTime)}>Choose</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                    )
-                }
-            })
-        })
-    }
-
-    if (data.length !== 0 && partner.length !== 0) {
-
-        // loop through partner array to find the partner name
-        for (let i = 0; i < partner.length; i++) {
-            if (partner[i][0] === data[1].Partner_ID) {
-                setPartner(partner[i]);
-            }
-        }
-        return (
-            <div class='pdp'>
-                {/* product details page */}
-                <div class="container-fluid">
-                    <div class='pdp_c'>
-                        <img src={partner[1].Logo} alt="..." class='pdp_client_logo'/>
-                        <h6 class='pdp_client'>{partner[1].CName}</h6>
+  function showTimeSlots() {
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    // map the availability object
+    return Object.keys(availability[1]).map((date) => {
+      // convert date to date object
+      let newDate = convertDate(date);
+      // if timeslot in date is true, console log the date and time
+      return Object.keys(availability[1][date]).map((time) => {
+        let newTime = convertDuration(time, data[1].Duration);
+        if (availability[1][date][time] === true) {
+          return (
+            <li>
+              <div class="row">
+                <div class="col-6">
+                  <p>
+                    {days[newDate.getDay()] +
+                      ", " +
+                      newDate.getDate() +
+                      " " +
+                      months[newDate.getMonth()]}
+                  </p>
+                  <p>{newTime}</p>
+                </div>
+                <div class="col-6 ppp_btn">
+                  <div class="row">
+                    <div class="col-12">
+                      <p>
+                        <span class="ppp">${data[1].Price.p_Pax}</span> / person
+                      </p>
                     </div>
-                    <h2 class='pdp_title'>{data[1].ExpName}</h2>
-                    <div class="row">
-                        <div class="col-8">
-                            <Carouselcomp img1={data[1].Images[1]} img2={data[1].Images[2]} img3={data[1].Images[3]}/>
-                        </div>
-                        <div class="col-4">
-                            <div class="pricing">
-        
-                                <div class="pricing_first">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <p>From</p>
-                                        </div>
-                                        <div class="col-6">
-                                            <p class='ppp_head'><span class='ppp_big'>${data[1].Price.p_Pax}</span><span class='per'> / person</span></p>
-                                        </div>
-                                    </div>
-                                    {/* <div class="row">
+                    <div class="col-12">
+                      <button
+                        type="button"
+                        class="btn"
+                        onClick={() =>
+                          goCheckout(data, partner, newDate, newTime)
+                        }
+                      >
+                        Choose
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          );
+        }
+      });
+    });
+  }
+
+  if (data.length !== 0 && partner.length !== 0) {
+    // loop through partner array to find the partner name
+    for (let i = 0; i < partner.length; i++) {
+      if (partner[i][0] === data[1].Partner_ID) {
+        setPartner(partner[i]);
+      }
+    }
+    return (
+      <div class="pdp">
+        {/* product details page */}
+        <div class="container-fluid">
+          <div class="pdp_c">
+            <img src={partner[1].Logo} alt="..." class="pdp_client_logo" />
+            <h6 class="pdp_client">{partner[1].CName}</h6>
+          </div>
+          <h2 class="pdp_title">{data[1].ExpName}</h2>
+          <div class="row">
+            <div class="col-8">
+              <Carouselcomp
+                img1={data[1].Images[1]}
+                img2={data[1].Images[2]}
+                img3={data[1].Images[3]}
+              />
+            </div>
+            <div class="col-4">
+              <div class="pricing">
+                <div class="pricing_first">
+                  <div class="row">
+                    <div class="col-6">
+                      <p>From</p>
+                    </div>
+                    <div class="col-6">
+                      <p class="ppp_head">
+                        <span class="ppp_big">${data[1].Price.p_Pax}</span>
+                        <span class="per"> / person</span>
+                      </p>
+                    </div>
+                  </div>
+                  {/* <div class="row">
                                         <div class="col-6">
                                             <button>Dates</button>
                                         </div>
@@ -217,59 +247,56 @@ function Pdp() {
                                             <button>Participants</button>
                                         </div>
                                     </div> */}
-                                </div>
-        
-                                <div class="pricing_second">
-                                    {/* list of dates */}
-                                    <div class="pricing_date">
-                                        {/* unordered list of dates */}
-                                        <ul>
-                                            
-                                            {showTimeSlots()}
-                                            
-                                        </ul>
-                                    </div>
-                                </div>
-        
-                                <div class="pricing_third">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-light">Show more availabilities</button>
-                                        </div>
-                                        <div class="col-12">
-                                            <button type="button" class="btn btn-dark">Request availabilities</button>
-                                        </div>
-                                    </div>
-                                </div>      
-        
-                            </div>
-                        </div>
-                    </div>
-        
-                    <div class="container">
-                        
-                    </div>
-        
                 </div>
-        
-                {/* description */}
-                <div class="container-fluid">
-                    <h6 class='pdp_who'>Who are we?</h6>
-                    <p class='pdp_who_details'> {data[1].Exp_Sig} <br/>
-                    <br/>
-                        <b>Through this experience, participants will be able to:</b> <br/>
-                        <ul>{learningOutcomes(data[1].Learning_Outcomes)}</ul></p>
+
+                <div class="pricing_second">
+                  {/* list of dates */}
+                  <div class="pricing_date">
+                    {/* unordered list of dates */}
+                    <ul>{showTimeSlots()}</ul>
+                  </div>
                 </div>
-        
-                <div class="container-fluid">
-                    <h6 class='pdp_who'>Sustainability</h6>
-                    <div class='sus_img'>
-                        {susImg(data[1].SDG)}
+
+                <div class="pricing_third">
+                  <div class="row">
+                    <div class="col-12">
+                      <button type="button" class="btn btn-light">
+                        Show more availabilities
+                      </button>
                     </div>
+                    <div class="col-12">
+                      <button type="button" class="btn btn-dark">
+                        Request availabilities
+                      </button>
+                    </div>
+                  </div>
                 </div>
+              </div>
             </div>
-            );
-    }
+          </div>
+
+          <div class="container"></div>
+        </div>
+
+        {/* description */}
+        <div class="container-fluid">
+          <h6 class="pdp_who">Who are we?</h6>
+          <p class="pdp_who_details">
+            {" "}
+            {data[1].Exp_Sig} <br />
+            <br />
+            <b>Through this experience, participants will be able to:</b> <br />
+            <ul>{learningOutcomes(data[1].Learning_Outcomes)}</ul>
+          </p>
+        </div>
+
+        <div class="container-fluid">
+          <h6 class="pdp_who">Sustainability</h6>
+          <div class="sus_img">{susImg(data[1].SDG)}</div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default Pdp;
