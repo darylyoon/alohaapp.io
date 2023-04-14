@@ -1,6 +1,6 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
-import { collection, setDoc, doc } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 import { db } from '../firebase';
 const CheckoutForm = (props) => {
   const booking_id = props.booking.BookingID;
@@ -40,12 +40,12 @@ const CheckoutForm = (props) => {
     }
   };
   const options = {
-    layout: "accordion",
+    layout: "tabs",
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='paymentStripe' onSubmit={handleSubmit}>
       <PaymentElement options={options} />
-      <button disabled={!stripe}>Submit</button>
+      <button className='payBtn' disabled={!stripe}>Submit</button>
     </form>
   )
 };
