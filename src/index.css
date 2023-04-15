@@ -275,6 +275,11 @@ li{
   margin-left: 25px;
 }
 
+.pricing_date{
+  overflow: auto;
+  height: 400px;
+}
+
 .pdp_title, .pdp_client, .pdp_who{
   text-align: center;
 }
@@ -309,7 +314,7 @@ li{
 }
 
 .pdp li{
-  list-style-type: circle !important;
+  list-style-type: none !important;
 }
 
 .pdp_c{

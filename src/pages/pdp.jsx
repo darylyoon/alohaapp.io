@@ -257,7 +257,7 @@ function Pdp() {
                   </div>
                 </div>
 
-                <div class="pricing_third">
+                {/* <div class="pricing_third">
                   <div class="row">
                     <div class="col-12">
                       <button type="button" class="btn btn-light">
@@ -270,7 +270,7 @@ function Pdp() {
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
