@@ -4,7 +4,7 @@
 async function getPaymentIntent(pay_amount) {
   // Create a PaymentIntent with the order amount and currency
   pay_amount = pay_amount * 100;
-  const stripe = require('stripe')('sk_test_51MnLSLFXC7CDXqcPYPSRb08OBbQG5g8UyEKDfbpGGfLNw7v7YLuLuCOal8QiU9Qcb8QFq8MYUcoVsD1oi3CJcPAN007rASPeSN');
+  const stripe = require('stripe')(process.env.REACT_APP_STRIPE_SECRET_KEY);
   const paymentIntent = stripe.paymentIntents.create({
     amount: pay_amount,
     currency: 'sgd',
