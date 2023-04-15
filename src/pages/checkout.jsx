@@ -17,6 +17,7 @@ function Checkout() {
   const date = location.state.date;
   const time = location.state.time;
   const partner = location.state.partner;
+  const pax = location.state.numPax;
   console.log(date);
 
   // console.log(booking);
@@ -123,7 +124,7 @@ function Checkout() {
         lastName: lastNameInput,
         phone: mobileNumberInput,
       },
-      noOfPax: null
+      noOfPax: pax,
     };
 
     navigate(`/stripe`, { state: { bookingInfo: bookingInfo } });
@@ -181,7 +182,7 @@ function Checkout() {
 
                 <tr>
                   <td className="detail_alignment">Participants:</td>
-                  <td className="detail_alignment">49</td>
+                  <td className="detail_alignment">{pax}</td>
                 </tr>
               </table>
             </div>
@@ -200,7 +201,7 @@ function Checkout() {
                 <p>${location.state.data[1].Price.p_Pax}</p>
               </div>
               <div class="col-6 rightside">
-                <p>x49</p>
+                <p>x{pax}</p>
               </div>
             </div>
 
@@ -211,7 +212,7 @@ function Checkout() {
                 <p>Subtotal</p>
               </div>
               <div class="col-6 rightside">
-                <p>$4655.00</p>
+                <p>${(location.state.data[1].Price.p_Pax * pax).toFixed(2)}</p>
               </div>
             </div>
 
@@ -220,8 +221,8 @@ function Checkout() {
             <div class="row">
               <ul class="co_options">
                 <li class="r1">
-                  <input type="radio" name="checkout" value={4000} onChange={onChangeAmount} checked={amount === "4000"} />
-                  <span>Pay full amount of $4, 655.00 to book</span>
+                  <input type="radio" name="checkout" value={(location.state.data[1].Price.p_Pax * pax).toFixed(2)} onChange={onChangeAmount} checked={amount === (location.state.data[1].Price.p_Pax * pax).toFixed(2)} />
+                  <span>Pay full amount of ${(location.state.data[1].Price.p_Pax * pax).toFixed(2)} to book</span>
                 </li>
                 <li class="r2">
                   <input type="radio" name="checkout" value={200} onChange={onChangeAmount} checked={amount === "200"} />

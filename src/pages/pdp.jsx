@@ -16,6 +16,8 @@ function Pdp() {
   const [availability, setAvailability] = useState([]);
   console.log(availability[1])
 
+  const [numPax, setNumPax] = useState(0);
+
   const navigate = useNavigate();
 
   console.log(data, partner, availability);
@@ -81,7 +83,7 @@ function Pdp() {
   function goCheckout(data, partner, date, time) {
     console.log(availability);
     navigate(`/checkout`, {
-      state: { data: data, partner: partner, date: date, time: time },
+      state: { data: data, partner: partner, date: date, time: time, numPax: numPax },
     });
   }
 
@@ -262,7 +264,8 @@ function Pdp() {
                         <span class="ppp_big">${data[1].Price.p_Pax}</span>
                         <span class="per"> / person</span>
                       </p>
-                    </div>
+                    </div> 
+                    <input type='number' min='1' max='1000' value={numPax} onChange={e => setNumPax(e.target.value)} placeholder='Number of pax'/>
                     <hr class="pdp_timeslot_hr"/>
                   </div>
                   {/* <div class="row">
