@@ -286,14 +286,13 @@ li{
 
 .pdp_who{
   padding-top: 100px;
-
 }
 
 .pdp_who_details{
   padding-top: 20px;
   padding-left: 100px;
   padding-right: 100px;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 .pdp_title{
@@ -303,18 +302,27 @@ li{
 
 .pdp_client_logo{
   /* make logo smaller */
-  width: 35px !important;
+  width: 100px !important;
   text-align: center;
 }
 
 .pdp_client{
   display: inline;
   padding-left: 10px;
-  padding-top: 10px;
+  padding-top: 25px;
 }
 
-.pdp li{
-  list-style-type: none !important;
+.learning_outcomes{
+  list-style-type: circle !important;
+  font-size: 15px;
+}
+
+.pdp_hr{
+  margin-top: 10px !important;
+}
+
+.pdp_timeslot_hr{
+  margin-top: 0px;
 }
 
 .pdp_c{
@@ -383,6 +391,8 @@ ul .btn{
   padding-right: 100px;
   padding-left: 100px;
   padding-top: 20px;
+  display: flex;
+  justify-content: center;
 }
 
 .pdp .slide{

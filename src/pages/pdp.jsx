@@ -60,22 +60,22 @@ function Pdp() {
 
   function learningOutcomes(array) {
     return array.map((item) => {
-      return <li>{item}</li>;
+      return <li class="learning_outcomes">{item}</li>;
     });
   }
 
   function susImg(object) {
     // loop through object
-    for (let key in object) {
-      console.log(object[key].SDG_No);
+    return Object.keys(object).map((SDGIndex) => {
+      console.log(object[SDGIndex].SDG_No);
       return (
         <img
-          src={require(`../assets/SDGs/SDG${object[key].SDG_No}.png`).default}
+          src={require(`../assets/SDGs/SDG${object[SDGIndex].SDG_No}.png`)}
           alt="..."
           class="pdp_sus_img"
         />
       );
-    }
+    });
   }
 
   function goCheckout(data, partner, date, time) {
@@ -217,6 +217,7 @@ function Pdp() {
                     </div>
                   </div>
                 </div>
+                  <hr class="pdp_hr"/>
               </div>
             </li>
           );
@@ -262,6 +263,7 @@ function Pdp() {
                         <span class="per"> / person</span>
                       </p>
                     </div>
+                    <hr class="pdp_timeslot_hr"/>
                   </div>
                   {/* <div class="row">
                                         <div class="col-6">
@@ -304,7 +306,7 @@ function Pdp() {
 
         {/* description */}
         <div class="container-fluid">
-          <h6 class="pdp_who">Who are we?</h6>
+          <h3 class="pdp_who">Who are we?</h3>
           <p class="pdp_who_details">
             {" "}
             {data[1].Exp_Sig} <br />
@@ -315,7 +317,7 @@ function Pdp() {
         </div>
 
         <div class="container-fluid">
-          <h6 class="pdp_who">Sustainability</h6>
+          <h3 class="pdp_who">Sustainability</h3>
           <div class="sus_img">{susImg(data[1].SDG)}</div>
         </div>
       </div>
