@@ -440,6 +440,11 @@ ul .btn{
   margin-top: 280px;
 }
 
+.customer_journey_fme{
+  display: flex;
+  justify-content: center;
+}
+
 .fme_button{
   background-color: #FD7133;
   border: none;
@@ -541,7 +546,6 @@ ul .btn{
 .customer_journey_image{
   /* center image */
   padding-left: 200px ;
-  margin-bottom: 200px;
   height: 450px;
 }
 

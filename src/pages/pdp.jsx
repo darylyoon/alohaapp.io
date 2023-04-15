@@ -14,6 +14,7 @@ function Pdp() {
   const [partner, setPartner] = useState([]);
 
   const [availability, setAvailability] = useState([]);
+  console.log(availability[1])
 
   const navigate = useNavigate();
 
@@ -86,7 +87,7 @@ function Pdp() {
 
   function convertDate(date) {
     let splitDate = date.split("/");
-    let newDate = new Date(splitDate[2], splitDate[1] - 1, splitDate[0]);
+    let newDate = new Date(String(parseInt(splitDate[2])+2000), splitDate[1] - 1, splitDate[0]);
     return newDate;
   }
 
@@ -136,6 +137,26 @@ function Pdp() {
     return startTime + " - " + endTime;
   }
 
+  function convert24h(time, duration) {
+    // add duration to time in 24h format
+    let durationMin = duration * 60;
+    let hours = Math.floor(durationMin / 60);
+    let minutes = durationMin % 60;
+    let endHour = parseInt(time[0] + time[1]) + hours;
+    let endMinutes = parseInt(time[2] + time[3]) + minutes;
+    if (endMinutes >= 60) {
+      endHour += 1;
+      endMinutes -= 60;
+    }
+    if (endMinutes < 10) {
+      endMinutes = "0" + endMinutes;
+    }
+    if (endHour < 10) {
+      endHour = "0" + endHour;
+    }
+    return time + " - " + endHour + endMinutes;
+  }
+
   function showTimeSlots() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const months = [
@@ -155,9 +176,12 @@ function Pdp() {
     // map the availability object
     return Object.keys(availability[1]).map((date) => {
       // convert date to date object
+      console.log(date);
       let newDate = convertDate(date);
+      console.log(newDate);
       // if timeslot in date is true, console log the date and time
       return Object.keys(availability[1][date]).map((time) => {
+        let oldTime = convert24h(time, data[1].Duration);
         let newTime = convertDuration(time, data[1].Duration);
         if (availability[1][date][time] === true) {
           return (
@@ -185,7 +209,7 @@ function Pdp() {
                         type="button"
                         class="btn"
                         onClick={() =>
-                          goCheckout(data, partner, newDate, newTime)
+                          goCheckout(data, partner, newDate, oldTime)
                         }
                       >
                         Choose
