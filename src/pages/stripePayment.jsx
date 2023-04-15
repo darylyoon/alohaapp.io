@@ -47,7 +47,7 @@ function Stripe() {
     // passing the client secret obtained from the server
     clientSecret: p_intent.client_secret,
   };
-  console.log(isSubscribedRef.current, p_intent.client_secret, stripePromise,);
+  // console.log(isSubscribedRef.current, p_intent.client_secret, stripePromise,);
   return (
     <div className="stripecheckout">
       {!isSubscribedRef.current ? (
