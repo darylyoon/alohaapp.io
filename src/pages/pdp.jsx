@@ -158,7 +158,19 @@ function Pdp() {
     }
     return time + " - " + endHour + endMinutes;
   }
-
+  function sortDates() {
+    // sort dates in ascending order
+    let dates = Object.keys(availability[1]);
+    let returnans = {};
+    for(var i = 0; i < dates.length; i++) {
+      var clean = dates[i].split("/");
+      returnans[clean[2] + clean[1] + clean[0]] = dates[i];
+    }
+    let final = Object.keys(returnans).sort();
+    console.log(Object.values(final));
+    console.log(returnans)
+    return Object.values(returnans);
+  }
   function showTimeSlots() {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const months = [
@@ -176,7 +188,8 @@ function Pdp() {
       "Dec",
     ];
     // map the availability object
-    return Object.keys(availability[1]).map((date) => {
+    // return Object.keys(availability[1]).sort().map((date) => {
+    return sortDates().map((date) => {
       // convert date to date object
       console.log(date);
       let newDate = convertDate(date);
