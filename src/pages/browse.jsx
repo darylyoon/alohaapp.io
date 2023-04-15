@@ -46,7 +46,7 @@ function BrowsePage() {
     return data.map((item) => {
       if (id_list.includes(item[0])) {
         return (
-          <a onClick={() => goPdp(item[0])} className='col-4'>
+          <a onClick={() => goPdp(item[0])} className='col-md-4 col-sm-6 col-xs-12'>
           <div class="card">
             <img src={item[1].Images[0]} class="card-img-top hi" alt="..."/>
             <div class="card-title">{item[1].ExpName}</div>
@@ -70,7 +70,7 @@ function BrowsePage() {
   //function to compare dates date 1 'yyyy-mm-dd' and date 2 'dd/mm/yy'
   function compareDates (date1, date2) {
     // cchange date 2 format to 'yyyy-mm-dd'
-    if (d1 > d2) {
+    if (date1 > date2) {
       return true;
     } else {
       return false;

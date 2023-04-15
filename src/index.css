@@ -275,12 +275,17 @@ li{
   margin-left: 25px;
 }
 
+.pricing_date{
+  overflow: auto;
+  height: 400px;
+}
+
 .pdp_title, .pdp_client, .pdp_who{
   text-align: center;
 }
 
 .pdp_who{
-  padding-top: 50px;
+  padding-top: 100px;
 
 }
 
@@ -296,7 +301,6 @@ li{
   padding-bottom: 20px;
 }
 
-
 .pdp_client_logo{
   /* make logo smaller */
   width: 35px !important;
@@ -309,8 +313,8 @@ li{
   padding-top: 10px;
 }
 
-.pdp_who_details li{
-  list-style-type: circle !important;
+.pdp li{
+  list-style-type: none !important;
 }
 
 .pdp_c{
@@ -372,14 +376,13 @@ ul .btn{
   height: -webkit-fill-available;
   padding-left: 50px; 
   padding-right: 50px;
+
 }
 
 .sus_img{
   padding-right: 100px;
   padding-left: 100px;
   padding-top: 20px;
-  display: flex;
-  justify-content: space-evenly;
 }
 
 .pdp .slide{
@@ -435,6 +438,11 @@ ul .btn{
   position: absolute;
   font-size: 50px;
   margin-top: 280px;
+}
+
+.customer_journey_fme{
+  display: flex;
+  justify-content: center;
 }
 
 .fme_button{
@@ -537,9 +545,8 @@ ul .btn{
 
 .customer_journey_image{
   /* center image */
-  padding-left: 150px ;
-  margin-bottom: 200px;
-  height: 500px;
+  padding-left: 200px ;
+  height: 450px;
 }
 
 /* slider */
@@ -1269,4 +1276,27 @@ ul .btn{
   border-radius: 10px;
   margin-top: 10px;
   font-size: 18px;
+}
+
+.payBtn {
+  background-color: #3633fd !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 30px 8px 30px;
+  border-radius: 10px;
+  margin-top: 15px;
+  font-size: 18px;
+}
+
+.paymentStripe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50%;
+  margin: auto;
+  margin-top: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
 }
