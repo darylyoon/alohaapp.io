@@ -16,11 +16,9 @@ function Checkout() {
   const data = location.state.data;
   const date = location.state.date;
   const time = location.state.time;
-  const partner = location.state.partner;
   const pax = location.state.numPax;
-  console.log(date);
 
-  // console.log(booking);
+  console.log(data);
 
   // console.log(location.state);
   // console.log(location.state.data);
@@ -125,6 +123,7 @@ function Checkout() {
         phone: mobileNumberInput,
       },
       noOfPax: pax,
+      Images: data[1].Images,
     };
 
     navigate(`/stripe`, { state: { bookingInfo: bookingInfo } });

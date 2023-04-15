@@ -2,7 +2,7 @@ import React from "react";
 import "add-to-calendar-button";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 import { db } from "../firebase";
 import { RWebShare } from "react-web-share";
 // import { useLocation } from "react-router-dom";
@@ -18,6 +18,27 @@ function Confirmation() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [time, setTime] = useState("");
+
+  console.log(data.Images[0]);
+  // const [experience, setExperience] = useState("");
+
+  // function trypo() {
+  //   const all = async () => {
+  //     await getDocs(collection(db, "Experiences")).then((querySnapshot) => { 
+  //       const info = querySnapshot.docs.map((doc) => [doc.id, doc.data()]); 
+  //       console.log(info[0][0]); 
+  //       console.log(data.ExpID) 
+  //       for (let i = 0; i < info.length; i++) { 
+  //         if (info[i][0] === data.ExpID) { 
+  //           setExperience(info[i]); 
+  //         } 
+  //       } 
+  //       console.log(experience);
+  //     }); 
+  //   }; 
+  //   all(); 
+  // };
+
   useEffect(() => {
     const getBooking = async () => {
       setLoading(true);
@@ -39,6 +60,12 @@ function Confirmation() {
     getBooking().catch(console.error);
     // return () => setIsSubscribed(false);
   }, [booking_id, isSubscribed]);
+
+  // if (data.length !== 0) {
+  //   console.log(data);
+  //   trypo();
+  // }
+  // console.log(experience);
 
   // edit the data stored from useState data (time needs to be from e.g. 1000 - 1200 to 10:00am - 12:00pm) with setData
   // also format the date from "01/01/23" to "01 January 2023, Monday"
@@ -95,7 +122,9 @@ function Confirmation() {
 
   return (
     <div className="confirmation">
-      <img src={require("../assets/plant.png")} alt="..." />
+      {/* <img src={require("../assets/plant.png")} alt="..." /> */}
+      {console.log(data.Images[0])}
+      <img src={data.Images[0]} alt="" />
       <h4>Booking Confirmed</h4>
       <p>
         Thank you for planting a seed towards sustainability and a fruitful team
@@ -194,7 +223,7 @@ function Confirmation() {
                 </p>
                 <p className="card-text">
                   <b>Amount Paid:</b>
-                  <br />${data.amountPaid}
+                  <br />${data.pay_amount}
                 </p>
               </div>
             </div>
