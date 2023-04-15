@@ -14,7 +14,7 @@ import {
   }
   from 'mdb-react-ui-kit';
 // import { googleAuthProvider } from "../util/google_authentication_provider";
-import { firebaseAuth, provider, db } from "../util/firebaseInit";
+import { firebaseAuth, provider, db } from "../firebase";
 import { signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { Router, useNavigate } from "react-router-dom";

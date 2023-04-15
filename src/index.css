@@ -331,6 +331,21 @@ li{
   justify-content: center;
 }
 
+.pdp .form-label{
+  font-size: 13px;
+}
+.pdp .modal-content{
+  padding: 20px;
+  width: 100%;
+}
+.pdp .modal-body input{
+  font-size: 13px;
+}
+.pdp .sr{
+  background-color: #FD7133;
+  color: #fff;
+}
+
 .pricing_date p{
   margin-bottom: 3px !important;
 }
