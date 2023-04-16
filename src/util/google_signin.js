@@ -1,5 +1,5 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { firebaseAuth } from "../utils/firebaseInit"
+import { firebaseAuth } from "../firebase"
 
 signInWithPopup(firebaseAuth, provider)
   .then((result) => {
