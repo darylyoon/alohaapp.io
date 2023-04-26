@@ -32,8 +32,10 @@ function Stripe() {
       setLoading(false);
       isSubscribedRef.current = false;
     };
-  
-    getClientSecret();
+    if (isSubscribedRef.current){
+      getClientSecret();
+    }
+    // getClientSecret();
   
     return () => {
       console.log("Component unmounted");

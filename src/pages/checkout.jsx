@@ -12,7 +12,7 @@ function Checkout() {
   const [booking, setBooking] = useState([]);
   const [amount, setAmount] = useState(0);
   const [isSubscribed, setIsSubscribed] = useState(true);
-
+  const [errMsg, setErrMsg] = useState("");
   const data = location.state.data;
   const date = location.state.date;
   const time = location.state.time;
@@ -107,7 +107,11 @@ function Checkout() {
     const mobileNumberInput = document.getElementById("mobileNumber").value;
     const companyNameInput = document.getElementById("companyName").value;
     const companyAddressInput = document.getElementById("companyAddress").value;
-
+    // validate input
+    if (firstNameInput === "" || lastNameInput === "" || emailInput === "" || mobileNumberInput === "" || companyNameInput === "" || companyAddressInput === "") {
+      setErrMsg("Please fill in all the fields");
+      return;
+    }
     const bookingInfo = {
       Date: databaseDate(date),
       ExpID: data[0],
@@ -124,7 +128,7 @@ function Checkout() {
         lastName: lastNameInput,
         phone: mobileNumberInput,
       },
-      noOfPax: pax,
+      noOfPax: parseInt(pax),
     };
 
     navigate(`/stripe`, { state: { bookingInfo: bookingInfo } });
@@ -329,9 +333,11 @@ function Checkout() {
               type="button"
               class="btn pay_btn"
               onClick={() => goStripe(data, date, time, amount)}
+              disabled={amount === 0}
             >
               Checkout
             </button>
+            {errMsg !== "" ? <p className="errMsg text-danger fw-bold text-center pt-3">{errMsg}</p> : null}
           </div>
         </div>
       </div>
