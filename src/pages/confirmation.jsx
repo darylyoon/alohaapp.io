@@ -19,7 +19,6 @@ function Confirmation() {
   const [endDate, setEndDate] = useState("");
   const [time, setTime] = useState("");
 
-  console.log(data.Images[0]);
   // const [experience, setExperience] = useState("");
 
   // function trypo() {
@@ -122,109 +121,130 @@ function Confirmation() {
 
   return (
     <div className="confirmation">
-      {/* <img src={require("../assets/plant.png")} alt="..." /> */}
-      {console.log(data.Images[0])}
-      <img src={data.Images[0]} alt="" />
-      <h4>Booking Confirmed</h4>
-      <p>
-        Thank you for planting a seed towards sustainability and a fruitful team
-        experience!
-      </p>
-      <RWebShare
-        data={{
-          text: "I just booked an experience from Aloha!",
-          url: "https://google.com/", // hardcode for now
-        }}
-      >
-        <button className="shareButton">Share</button>
-      </RWebShare>
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-6">
-            <div className="card carded">
-              <div className="card-body">
-                <h3 className="card-title">Experience Details</h3>
-                <hr />
-                {/* Map the data stored */}
-                <p className="card-text">
-                  <b>Experience:</b>
-                  <br />
-                  {data.ExpName}
-                </p>
-                <p className="card-text">
-                  <b>Location:</b>
-                  <br />
-                  {data.Exp_Loc}
-                </p>
-                <p className="card-text">
-                  <b>Time:</b>
-                  <br />
-                  {time}
-                </p>
-                <p className="card-text">
-                  <b>Participants:</b>
-                  <br />
-                  {data.noOfPax}
-                </p>
-                <p className="card-text">
-                  <b>Date:</b>
-                  <br />
-                  {date}
-                </p>
-                {/* <p className="card-text"><b>Experience:</b><br/>Lunch & Learn: Let’s Stop Eating Plastic</p>
-                        <p className="card-text"><b>Location:</b><br/>Clementi Park, Singapore 123456</p>
-                        <p className="card-text"><b>Time:</b><br/>9:00am - 12:00pm</p>
-                        <p className="card-text"><b>Participants:</b><br/>49</p>
-                        <p className="card-text"><b>Date:</b><br/>21 February 2023, Monday</p> */}
-                {!isSubscribed ? (
-                  <add-to-calendar-button
-                    options="'Apple','Google','MicrosoftTeams'"
-                    buttonsList="true"
-                    buttonStyle="round"
-                    hideTextLabelButton="true"
-                    name={data.ExpName}
-                    location={data.Exp_Loc}
-                    startDate={startDate}
-                    endDate={endDate}
-                    startTime={time.slice(0, 5)}
-                    endTime={time.slice(8, 13)}
-                    timeZone="Asia/Singapore"
-                    size="4"
-                  ></add-to-calendar-button>
-                ) : null}
-              </div>
+      <div className="row">
+        <div className="col">
+          {/* <img src={require("../assets/plant.png")} alt="..." /> */}
+          
+          <div className="row justify-content-center">
+            <div className="col-3 booking-confirmed-text">
+              Booking Confirmed
+            </div>
+            <p>
+              Thank you for planting a seed towards sustainability and a fruitful team
+              experience!
+            </p>
+            <div className="col-2">
+              <RWebShare
+                data={{
+                  text: "I just booked an experience from Aloha!",
+                  url: "https://google.com/", // hardcode for now
+                }}
+              >
+                <button className="shareButton">Share</button>
+              </RWebShare>
             </div>
           </div>
 
-          <div className="col-6">
-            <div className="card cardbd">
-              <div className="card-body">
-                <h3 className="card-title">Booking Details</h3>
-                <hr />
-                <p className="card-text">
-                  <b>Booker Name:</b>
-                  <br />
-                  {data.bookerDetails?.firstName} {data.bookerDetails?.lastName}
-                </p>
-                <p className="card-text">
-                  <b>Email:</b>
-                  <br />
-                  {data.bookerDetails?.email}
-                </p>
-                <p className="card-text">
-                  <b>Mobile:</b>
-                  <br />
-                  +65 {data.bookerDetails?.phone}
-                </p>
-                <p className="card-text">
-                  <b>Company Name:</b>
-                  <br />
-                  {data.bookerDetails?.companyName}
-                </p>
-                <p className="card-text">
-                  <b>Amount Paid:</b>
-                  <br />${data.pay_amount}
-                </p>
+          <div className="row justify-content-center">
+            <div className="col-3">
+              <img className="confirmation-left-image" src={data.Images[0]} alt="" />
+            </div>
+            <div className="col-3">
+              <img src={data.Images[1]} alt="" />
+            </div>
+            <div className="col-3">
+              <img className="confirmation-right-image" src={data.Images[2]} alt="" />
+            </div>
+          </div>
+
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-6">
+                <div className="card carded">
+                  <div className="card-body">
+                    <h3 className="card-title">Experience Details</h3>
+                    <hr />
+                    {/* Map the data stored */}
+                    <p className="card-text">
+                      <b>Experience:</b>
+                      <br />
+                      {data.ExpName}
+                    </p>
+                    <p className="card-text">
+                      <b>Location:</b>
+                      <br />
+                      {data.Exp_Loc}
+                    </p>
+                    <p className="card-text">
+                      <b>Time:</b>
+                      <br />
+                      {time}
+                    </p>
+                    <p className="card-text">
+                      <b>Participants:</b>
+                      <br />
+                      {data.noOfPax}
+                    </p>
+                    <p className="card-text">
+                      <b>Date:</b>
+                      <br />
+                      {date}
+                    </p>
+                    {/* <p className="card-text"><b>Experience:</b><br/>Lunch & Learn: Let’s Stop Eating Plastic</p>
+                            <p className="card-text"><b>Location:</b><br/>Clementi Park, Singapore 123456</p>
+                            <p className="card-text"><b>Time:</b><br/>9:00am - 12:00pm</p>
+                            <p className="card-text"><b>Participants:</b><br/>49</p>
+                            <p className="card-text"><b>Date:</b><br/>21 February 2023, Monday</p> */}
+                    {!isSubscribed ? (
+                      <add-to-calendar-button
+                        options="'Apple','Google','MicrosoftTeams'"
+                        buttonsList="true"
+                        buttonStyle="round"
+                        hideTextLabelButton="true"
+                        name={data.ExpName}
+                        location={data.Exp_Loc}
+                        startDate={startDate}
+                        endDate={endDate}
+                        startTime={time.slice(0, 5)}
+                        endTime={time.slice(8, 13)}
+                        timeZone="Asia/Singapore"
+                        size="4"
+                      ></add-to-calendar-button>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+              <div className="col-6">
+                <div className="card cardbd">
+                  <div className="card-body">
+                    <h3 className="card-title">Booking Details</h3>
+                    <hr />
+                    <p className="card-text">
+                      <b>Booker Name:</b>
+                      <br />
+                      {data.bookerDetails?.firstName} {data.bookerDetails?.lastName}
+                    </p>
+                    <p className="card-text">
+                      <b>Email:</b>
+                      <br />
+                      {data.bookerDetails?.email}
+                    </p>
+                    <p className="card-text">
+                      <b>Mobile:</b>
+                      <br />
+                      +65 {data.bookerDetails?.phone}
+                    </p>
+                    <p className="card-text">
+                      <b>Company Name:</b>
+                      <br />
+                      {data.bookerDetails?.companyName}
+                    </p>
+                    <p className="card-text">
+                      <b>Amount Paid:</b>
+                      <br />${data.pay_amount}
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

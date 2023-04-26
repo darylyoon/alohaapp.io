@@ -900,10 +900,28 @@ ul .btn{
   text-align: center;
 }
 
+.booking-confirmed-text {
+  font-size: 28px;
+  font-weight: 600;
+}
+
 .confirmation img{
-  width: 100px;
+  width: 350px;
   padding-top: 50px;
   padding-bottom: 20px;
+  border-radius: 20px;
+}
+
+.confirmation-left-image {
+  margin-left: 0px;
+}
+
+.confirmation-center-image {
+  padding: 0;
+}
+
+.confirmation-right-image {
+  margin-right: 0px;
 }
 
 .carded{
@@ -936,7 +954,8 @@ ul .btn{
   background-clip: border-box;
   border: 1px solid rgba(0,0,0,.125) !important;
   border-radius: 0.25rem;
-  width: 65%;
+  width: 70%;
+  height: 85%;
 }
 
 .confirmation .card p{
