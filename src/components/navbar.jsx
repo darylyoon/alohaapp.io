@@ -6,10 +6,10 @@ function Navbar() {
     function history(username) {
         if (username !== null) {
             return (
-                <form class="d-flex">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href='/logout'>Sign Out</a>
+                <form className="d-flex">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                    <a className="nav-link active" aria-current="page" href='/logout'>Sign Out</a>
                     </li>
                 </ul>
                 </form>
@@ -18,10 +18,10 @@ function Navbar() {
 
         else {
             return (
-                <form class="d-flex">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/login">Sign In</a>
+                <form className="d-flex">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                        <a className="nav-link active" aria-current="page" href="/login">Sign In</a>
                         </li>
                     </ul>
                 </form>
@@ -47,36 +47,36 @@ function Navbar() {
 
     return (
         <div>
-            <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-                <img src={require('../assets/aloha.png')} alt="..." class='navbar_brand' />
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+            <nav className="navbar navbar-expand-lg navbar-light">
+            <div className="container-fluid">
+                <img src={require('../assets/aloha.png')} alt="..." className='navbar_brand' />
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <a className="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/browse">Browse</a>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/browse">Browse</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">About</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Use Cases</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Retain & Re-engage</a></li>
-                                <li><a class="dropdown-item" href="#">Connect & Communicate</a></li>
-                                <li><a class="dropdown-item" href="#">Rebuild & Re-align</a></li>
-                                <li><a class="dropdown-item" href="#">Creative Learning</a></li>
-                                <li><a class="dropdown-item" href="#">Performance Booster</a></li>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a className="dropdown-item" href="#">Retain & Re-engage</a></li>
+                                <li><a className="dropdown-item" href="#">Connect & Communicate</a></li>
+                                <li><a className="dropdown-item" href="#">Rebuild & Re-align</a></li>
+                                <li><a className="dropdown-item" href="#">Creative Learning</a></li>
+                                <li><a className="dropdown-item" href="#">Performance Booster</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Corporate Subscriptions</a>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Corporate Subscriptions</a>
                         </li>
                     </ul>
                     {history(username)}

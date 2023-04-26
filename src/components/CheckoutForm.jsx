@@ -1,6 +1,7 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
 import { setDoc, doc } from "firebase/firestore";
+import { send } from 'emailjs-com';
 import { db } from '../firebase';
 const CheckoutForm = (props) => {
   const booking_id = props.booking.BookingID;
@@ -8,6 +9,17 @@ const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  // const alohaURI = process.env.REACT_APP_PROD_ENV_URI;
+  const alohaURI = process.env.REACT_APP_TEST_ENV_URI;
+  const sendConfirmationEmail = async () => {
+      const templateParams = {
+        to_name: `${props.booking.bookerDetails?.firstName} ${props.booking.bookerDetails?.lastName}`,
+        bookingid: `B${booking_id}`,
+        to_email: props.booking.bookerDetails.email,
+        booking_url: `${alohaURI}/confirmation/${booking_id}`
+      }
+      await send(process.env.REACT_APP_EMAILJS_SERVICE_ID, process.env.REACT_APP_EMAILJS_TEMPLATE_ID, templateParams, process.env.REACT_APP_EMAILJS_PUB_KEY);
+    }
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
@@ -36,6 +48,7 @@ const CheckoutForm = (props) => {
       // remove bookingID from props.booking
       delete props.booking.BookingID;
       const docRef = await setDoc(doc(db, "Booking", `B${booking_id}`), props.booking);
+      await sendConfirmationEmail();
       navigate(`/confirmation/${booking_id}`);
     }
   };

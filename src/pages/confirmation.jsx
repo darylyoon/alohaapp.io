@@ -10,10 +10,13 @@ import { RWebShare } from "react-web-share";
 function Confirmation() {
   // const location = useLocation();
   // console.log(location.state);
+  // const alohaURI = process.env.REACT_APP_PROD_ENV_URI;
+  const alohaURI = process.env.REACT_APP_TEST_ENV_URI;
   const { booking_id } = useParams();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [isSubscribed, setIsSubscribed] = useState(true);
+  const [isDataEdited, setIsDataEdited] = useState(false);
   const [date, setDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -73,7 +76,7 @@ function Confirmation() {
       setLoading(true);
       let timing = data.Time;
       timing = timing.replace(/(\d{2})(\d{2})/g, "$1:$2");
-      console.log(timing);
+      // console.log(timing);
       const [d, m, y] = data.Date.split("/");
       const format_date = new Date(`20${y}-${m}-${d}`);
       let day = format_date.getDay();
@@ -109,6 +112,7 @@ function Confirmation() {
         `${date_of} ${month_of_year[month]} ${year}, ${day_of_week[day]}`
       );
       setTime(timing);
+      setIsDataEdited(true);
       setLoading(false);
     };
     if (!loading && data.Time && data.Date) {
@@ -137,7 +141,7 @@ function Confirmation() {
               <RWebShare
                 data={{
                   text: "I just booked an experience from Aloha!",
-                  url: "https://google.com/", // hardcode for now
+                  url: `${alohaURI}/confirmation/share/${booking_id}`,
                 }}
               >
                 <button className="shareButton">Share</button>
@@ -195,7 +199,7 @@ function Confirmation() {
                             <p className="card-text"><b>Time:</b><br/>9:00am - 12:00pm</p>
                             <p className="card-text"><b>Participants:</b><br/>49</p>
                             <p className="card-text"><b>Date:</b><br/>21 February 2023, Monday</p> */}
-                    {!isSubscribed ? (
+                    {isDataEdited ? (
                       <add-to-calendar-button
                         options="'Apple','Google','MicrosoftTeams'"
                         buttonsList="true"
