@@ -167,7 +167,7 @@ const Questionnaire = () => (
               <button type="button" class="btn btn-circle btn-xl" onClick={to3}>Up to 20</button>
               <button type="button" class="btn btn-circle btn-xl" onClick={to3}>21 - 49</button>
               <button type="button" class="btn btn-circle btn-xl" onClick={to3}>50 - 99</button>
-              <button type="button" class="btn btn-circle btn-xl" onClick={to3}>> 100</button>
+              <button type="button" class="btn btn-circle btn-xl" onClick={to3}> 100</button>
             </div>
             <div className='qnbuttons'>
               <a className='qnnext' onClick={to3}>Im flexible &#8250;</a>
