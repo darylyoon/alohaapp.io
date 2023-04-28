@@ -914,14 +914,17 @@ ul .btn{
 
 .confirmation-left-image {
   margin-left: 0px;
+  height: 300px;
 }
 
 .confirmation-center-image {
   padding: 0;
+  height: 300px
 }
 
 .confirmation-right-image {
   margin-right: 0px;
+  height: 300px;
 }
 
 .carded{
@@ -975,8 +978,15 @@ ul .btn{
   text-align: center;
 }
 
+.image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
 .share-image {
-  width: 500px;
+  width: 600px;
 }
 
 .booking-share-text {
@@ -1012,6 +1022,13 @@ ul .btn{
   margin-bottom: 15px;
 }
 
+.sharecarded{
+  margin-top: 40px !important;
+  width: 50%;
+  text-align: left;
+  left: 10%;
+  margin-bottom: 40px !important;
+}
 /* Questionnaire */
 .questionnaire{
   height: 450px;

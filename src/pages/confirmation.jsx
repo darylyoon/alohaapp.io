@@ -51,7 +51,7 @@ function Confirmation() {
         return;
       }
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
+        // console.log("Document data:", docSnap.data());
         setData(docSnap.data());
         setLoading(false);
         setIsSubscribed(false);
@@ -154,7 +154,7 @@ function Confirmation() {
               <img className="confirmation-left-image" src={data.Images[0]} alt="" />
             </div>
             <div className="col-3">
-              <img src={data.Images[1]} alt="" />
+              <img className="confirmation-center-image" src={data.Images[1]} alt="" />
             </div>
             <div className="col-3">
               <img className="confirmation-right-image" src={data.Images[2]} alt="" />

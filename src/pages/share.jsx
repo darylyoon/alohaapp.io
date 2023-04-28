@@ -122,11 +122,11 @@ function Share() {
 
           <div className="container-fluid">
             <div className="row">
-              <div className="col-6">
+              <div className="col-6 image-box">
                     <img className="share-image" src={data.Images[0]} alt="" />
               </div>
-              <div className="col-6">
-                <div className="card carded">
+              <div className="col-6 text-center">
+                <div className="card sharecarded">
                   <div className="card-body">
                     <h3 className="card-title">Experience Details</h3>
                     <hr />

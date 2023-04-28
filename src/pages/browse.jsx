@@ -26,7 +26,7 @@ function BrowsePage() {
     fetchPost();
   }, [])
 
-  console.log(data);
+  // console.log(data);
 
   function goPdp(id) {
     navigate(`/pdp/${id}`);
@@ -162,7 +162,7 @@ function BrowsePage() {
         }
       }
 
-      console.log(fSdate, fEdate);
+      // console.log(fSdate, fEdate);
 
       // check start and end date
       if (fSdate !== '') {

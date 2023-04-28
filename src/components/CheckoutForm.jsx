@@ -1,10 +1,11 @@
 import {useStripe, useElements, PaymentElement} from '@stripe/react-stripe-js';
 import { useNavigate } from 'react-router-dom';
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, updateDoc } from "firebase/firestore";
 import { send } from 'emailjs-com';
 import { db } from '../firebase';
 const CheckoutForm = (props) => {
   const booking_id = props.booking.BookingID;
+  // console.log(props.booking);
   // console.log(props.booking.BookingID);
   const stripe = useStripe();
   const elements = useElements();
@@ -20,6 +21,24 @@ const CheckoutForm = (props) => {
       }
       await send(process.env.REACT_APP_EMAILJS_SERVICE_ID, process.env.REACT_APP_EMAILJS_TEMPLATE_ID, templateParams, process.env.REACT_APP_EMAILJS_PUB_KEY);
     }
+  const formatDate = (dateStr) => {
+    return dateStr.replace(/\//g, '-');
+  };
+  
+  const updateAvail = async (expID, date, time) => {
+    const formattedDate = formatDate(date);
+    const updateValue = {};
+    updateValue[formattedDate] = {};
+    updateValue[formattedDate][time] = false;
+  
+    const docRef = doc(db, "Availability", expID);
+    try {
+      await updateDoc(docRef, updateValue);
+      console.log('Document successfully updated!');
+    } catch (error) {
+      console.error('Error updating document: ', error);
+    }
+  };
   const handleSubmit = async (event) => {
     // We don't want to let default form submission happen here,
     // which would refresh the page.
@@ -48,6 +67,7 @@ const CheckoutForm = (props) => {
       // remove bookingID from props.booking
       delete props.booking.BookingID;
       const docRef = await setDoc(doc(db, "Booking", `B${booking_id}`), props.booking);
+      await updateAvail(props.expID, props.booking.Date, props.booking.Time.slice(0,4));
       await sendConfirmationEmail();
       navigate(`/confirmation/${booking_id}`);
     }

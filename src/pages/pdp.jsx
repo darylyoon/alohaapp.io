@@ -8,20 +8,21 @@ import { useNavigate } from "react-router-dom";
 
 function Pdp() {
   const id = useParams();
-  console.log(id.exp_id)
+  // console.log(id.exp_id)
 
   const [data, setData] = useState([]);
 
   const [partner, setPartner] = useState([]);
 
   const [availability, setAvailability] = useState([]);
-  console.log(availability[1])
-
-  const [numPax, setNumPax] = useState(0);
+  // console.log(availability[1])
+  const [minPax, setMinPax] = useState(0);
+  const [maxPax, setMaxPax] = useState(0);
+  const [numPax, setNumPax] = useState(1);
 
   const navigate = useNavigate();
 
-  console.log(data, partner, availability);
+  // console.log(data, partner, availability);
 
   useEffect(() => {
     const all = async () => {
@@ -61,6 +62,16 @@ function Pdp() {
     all();
   }, []);
 
+  useEffect(() => {
+    const settingPart = () => {
+      if (data.length !== 0){
+        setMinPax(data[1].Min_Part);
+        setMaxPax(data[1].Max_Part);
+      }
+    }
+    settingPart();
+  }, [data]);
+
   function learningOutcomes(array) {
     return array.map((item) => {
       return <li class="learning_outcomes">{item}</li>;
@@ -70,7 +81,7 @@ function Pdp() {
   function susImg(object) {
     // loop through object
     return Object.keys(object).map((SDGIndex) => {
-      console.log(object[SDGIndex].SDG_No);
+      // console.log(object[SDGIndex].SDG_No);
       return (
         <img
           src={require(`../assets/SDGs/SDG${object[SDGIndex].SDG_No}.png`)}
@@ -82,15 +93,15 @@ function Pdp() {
   }
 
   function goCheckout(data, partner, date, time) {
-    console.log(availability);
+    // console.log(availability);
     navigate(`/checkout`, {
       state: { data: data, partner: partner, date: date, time: time, numPax: numPax },
     });
   }
 
   function convertDate(date) {
-    let splitDate = date.split("/");
-    let newDate = new Date(String(parseInt(splitDate[2])+2000), splitDate[1] - 1, splitDate[0]);
+    let splitDate = date.split("-");
+    let newDate = new Date(String(parseInt(splitDate[2])+2000), splitDate[1] -1, splitDate[0]);
     return newDate;
   }
 
@@ -164,12 +175,12 @@ function Pdp() {
     let dates = Object.keys(availability[1]);
     let returnans = {};
     for(var i = 0; i < dates.length; i++) {
-      var clean = dates[i].split("/");
+      var clean = dates[i].split("-");
       returnans[clean[2] + clean[1] + clean[0]] = dates[i];
     }
     let final = Object.keys(returnans).sort();
-    console.log(Object.values(final));
-    console.log(returnans)
+    // console.log(Object.values(final));
+    // console.log(returnans)
     return Object.values(returnans);
   }
   function showTimeSlots() {
@@ -192,9 +203,9 @@ function Pdp() {
     // return Object.keys(availability[1]).sort().map((date) => {
     return sortDates().map((date) => {
       // convert date to date object
-      console.log(date);
+      // console.log(date);
       let newDate = convertDate(date);
-      console.log(newDate);
+      // console.log(newDate);
       // if timeslot in date is true, console log the date and time
       return Object.keys(availability[1][date]).map((time) => {
         let oldTime = convert24h(time, data[1].Duration);
@@ -227,6 +238,7 @@ function Pdp() {
                         onClick={() =>
                           goCheckout(data, partner, newDate, oldTime)
                         }
+                        disabled={numPax < minPax || numPax === "" || numPax > maxPax ? true : false}
                       >
                         Choose
                       </button>

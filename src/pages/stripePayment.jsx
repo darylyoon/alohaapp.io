@@ -54,7 +54,7 @@ function Stripe() {
     <div className="stripecheckout">
       {!isSubscribedRef.current ? (
         <Elements stripe={stripePromise} options={options}>
-          <CheckoutForm booking={bookingInfo} />
+          <CheckoutForm booking={bookingInfo} expID={location.state.expID} />
         </Elements>
       ) : null}
     </div>

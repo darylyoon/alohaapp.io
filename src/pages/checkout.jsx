@@ -15,10 +15,11 @@ function Checkout() {
   const [errMsg, setErrMsg] = useState("");
   const data = location.state.data;
   const date = location.state.date;
+  // console.log(date)
   const time = location.state.time;
   const pax = location.state.numPax;
 
-  console.log(data);
+  // console.log(data);
 
   // console.log(location.state);
   // console.log(location.state.data);
@@ -71,7 +72,7 @@ function Checkout() {
       " " +
       months[date.getMonth()] +
       " " +
-      date.getYear() +
+      date.getFullYear() +
       ", " +
       days[date.getDay()]
     );
@@ -79,7 +80,7 @@ function Checkout() {
 
   function databaseDate(date) {
     const d = date.getDate();
-    const m = date.getMonth();
+    const m = date.getMonth() + 1;
     const y = date.getYear() - 100;
     return `${d < 10 ? "0" + d : d}/${m < 10 ? "0" + m : m}/${y}`;
   }
@@ -130,7 +131,7 @@ function Checkout() {
       Images: data[1].Images,
     };
 
-    navigate(`/stripe`, { state: { bookingInfo: bookingInfo } });
+    navigate(`/stripe`, { state: { bookingInfo: bookingInfo, expID: data[0] } });
   }
 
   return (
