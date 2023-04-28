@@ -2,12 +2,12 @@ import React from "react";
 import "add-to-calendar-button";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc, getDocs, collection } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import { RWebShare } from "react-web-share";
 // import { useLocation } from "react-router-dom";
 
-function Confirmation() {
+function Share() {
   // const location = useLocation();
   // console.log(location.state);
   // const alohaURI = process.env.REACT_APP_PROD_ENV_URI;
@@ -21,25 +21,6 @@ function Confirmation() {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [time, setTime] = useState("");
-
-  // const [experience, setExperience] = useState("");
-
-  // function trypo() {
-  //   const all = async () => {
-  //     await getDocs(collection(db, "Experiences")).then((querySnapshot) => { 
-  //       const info = querySnapshot.docs.map((doc) => [doc.id, doc.data()]); 
-  //       console.log(info[0][0]); 
-  //       console.log(data.ExpID) 
-  //       for (let i = 0; i < info.length; i++) { 
-  //         if (info[i][0] === data.ExpID) { 
-  //           setExperience(info[i]); 
-  //         } 
-  //       } 
-  //       console.log(experience);
-  //     }); 
-  //   }; 
-  //   all(); 
-  // };
 
   useEffect(() => {
     const getBooking = async () => {
@@ -124,45 +105,26 @@ function Confirmation() {
   }
 
   return (
-    <div className="confirmation">
+    <div className="share">
       <div className="row">
         <div className="col">
           {/* <img src={require("../assets/plant.png")} alt="..." /> */}
           
           <div className="row justify-content-center">
-            <div className="col-3 booking-confirmed-text">
-              Booking Confirmed
+            <div className="col-3 booking-share-text">
+              Booking Details
             </div>
             <p>
               Thank you for planting a seed towards sustainability and a fruitful team
               experience!
             </p>
-            <div className="col-2">
-              <RWebShare
-                data={{
-                  text: "I just booked an experience from Aloha!",
-                  url: `${alohaURI}/confirmation/share/${booking_id}`,
-                }}
-              >
-                <button className="shareButton">Share</button>
-              </RWebShare>
-            </div>
-          </div>
-
-          <div className="row justify-content-center">
-            <div className="col-3">
-              <img className="confirmation-left-image" src={data.Images[0]} alt="" />
-            </div>
-            <div className="col-3">
-              <img src={data.Images[1]} alt="" />
-            </div>
-            <div className="col-3">
-              <img className="confirmation-right-image" src={data.Images[2]} alt="" />
-            </div>
           </div>
 
           <div className="container-fluid">
             <div className="row">
+              <div className="col-6">
+                    <img className="share-image" src={data.Images[0]} alt="" />
+              </div>
               <div className="col-6">
                 <div className="card carded">
                   <div className="card-body">
@@ -218,38 +180,6 @@ function Confirmation() {
                   </div>
                 </div>
               </div>
-              <div className="col-6">
-                <div className="card cardbd">
-                  <div className="card-body">
-                    <h3 className="card-title">Booking Details</h3>
-                    <hr />
-                    <p className="card-text">
-                      <b>Booker Name:</b>
-                      <br />
-                      {data.bookerDetails?.firstName} {data.bookerDetails?.lastName}
-                    </p>
-                    <p className="card-text">
-                      <b>Email:</b>
-                      <br />
-                      {data.bookerDetails?.email}
-                    </p>
-                    <p className="card-text">
-                      <b>Mobile:</b>
-                      <br />
-                      +65 {data.bookerDetails?.phone}
-                    </p>
-                    <p className="card-text">
-                      <b>Company Name:</b>
-                      <br />
-                      {data.bookerDetails?.companyName}
-                    </p>
-                    <p className="card-text">
-                      <b>Amount Paid:</b>
-                      <br />${data.pay_amount}
-                    </p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -258,4 +188,4 @@ function Confirmation() {
   );
 }
 
-export default Confirmation;
+export default Share;

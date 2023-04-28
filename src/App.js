@@ -15,6 +15,7 @@ import Logout from './pages/logout';
 import Signup from './pages/signup';
 import Dashboard from './pages/dashboard';
 import Stripe from './pages/stripePayment'
+import Share from './pages/share';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/checkout" element={<Checkout/>}/>
         <Route path='/stripe' element={<Stripe/>} />
         <Route path="/confirmation/:booking_id" element={<Confirmation/>}/>
+        <Route path="/confirmation/share/:booking_id" element={<Share/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
       </Routes>
     </div>

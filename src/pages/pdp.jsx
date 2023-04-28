@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 function Pdp() {
   const id = useParams();
+  console.log(id.exp_id)
 
   const [data, setData] = useState([]);
 

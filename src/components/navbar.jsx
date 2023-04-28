@@ -64,7 +64,7 @@ function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link" href="#">About</a>
                         </li>
-                        <li className="nav-item dropdown">
+                        {/* <li className="nav-item dropdown">
                             <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Use Cases</a>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -77,7 +77,7 @@ function Navbar() {
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">Corporate Subscriptions</a>
-                        </li>
+                        </li> */}
                     </ul>
                     {history(username)}
                 </div>
